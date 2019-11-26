@@ -22,7 +22,11 @@ public class Patient {
     private final StringProperty lastName;
     private final IntegerProperty patientID;
     private final ObjectProperty<LocalDate> consultationDate;
+    
     private final ObjectProperty<PRO> PRO_schedule;
+    
+    
+    public final Consultation consultation = new Consultation();
 
     /**
      * Default constructor.
@@ -40,7 +44,7 @@ public class Patient {
     public Patient(String firstName, String lastName) {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-        
+                
         // Some initial dummy data, just for convenient testing.
         this.patientID = makeID();
         this.consultationDate = new SimpleObjectProperty<LocalDate>(LocalDate.of(2019, 1, 1));
@@ -82,6 +86,7 @@ public class Patient {
     public IntegerProperty patientIDProperty() {
         return patientID;
     }
+    
 
     public LocalDate getConsultationDate() {
         return consultationDate.get();

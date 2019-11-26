@@ -7,12 +7,13 @@ import dk.aau.model.ExistingInfo;
 import dk.aau.model.PRO;
 import dk.aau.model.Patient;
 import dk.aau.view.EditDialogController;
-import dk.aau.view.PatientOverviewController;
+import dk.aau.view.ConsultationListController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -27,6 +28,7 @@ public class MainApp extends Application {
      * The data as an observable list of Patients.
      */
     private ObservableList<Patient> patientData = FXCollections.observableArrayList();
+    private ConsultationListController consultationListcontroller;
 
     /**
      * Constructor
@@ -106,6 +108,12 @@ public class MainApp extends Application {
             // Set person overview into the center of root layout.
             rootLayout.setLeft(ConsultationListView);
             
+            // Give the controller access to the main app.
+            ConsultationListController controller = loader.getController();
+            controller.setMainApp(this);
+            consultationListcontroller = controller;
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,6 +127,10 @@ public class MainApp extends Application {
             AnchorPane PatientInfoListView = (AnchorPane) loader.load();
             
             rootLayout.setCenter(PatientInfoListView);
+            // Give the controller access to the main app.
+            //PatientInfoController controller = loader.getController();
+            //controller.setMainApp(this);
+            //controller.setConsultationListController = consultationListcontroller;
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,35 +146,41 @@ public class MainApp extends Application {
             
             rootLayout.setBottom(PendingListView);
             
+	         // Give the controller access to the main app.
+            //DoctorOverviewController controller = loader.getController();
+            //controller.setMainApp(this);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public boolean showPatientEditDialog(Patient patient) {
+    public boolean showPatientOpenDialog(Patient patient) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/EditDialogView.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            loader.setLocation(MainApp.class.getResource("view/doctorSchemeScrollPane.fxml.fxml"));
+            ScrollPane page = (ScrollPane) loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Patient");
+            dialogStage.setTitle("Open Patient");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
             // Set the patient into the controller.
-            EditDialogController controller = loader.getController();
+            
+            /*EditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setPatient(patient);
-
+			*/
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-
-            return controller.isOkClicked();
+        	
+            return false;
+            //return controller.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();
             return false;
