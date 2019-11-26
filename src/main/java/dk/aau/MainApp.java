@@ -3,11 +3,12 @@ package dk.aau;
 
 import java.io.IOException;
 
+import dk.aau.model.Consultation;
 import dk.aau.model.Doctor;
 import dk.aau.model.ExistingInfo;
 import dk.aau.model.PRO;
 import dk.aau.model.Patient;
-import dk.aau.view.EditDialogController;
+import dk.aau.view.DoctorSchemeController;
 import dk.aau.view.PatientInfoController;
 import dk.aau.view.ConsultationListController;
 import dk.aau.view.DoctorOverviewRootLayoutController;
@@ -53,6 +54,7 @@ public class MainApp extends Application {
         
         // Test for patient specific questions
         patientData.get(0).getPROSchedule().setAnswer1("Tirsdag d. 11/11");
+        patientData.get(0).setAdress("Hans' Adresse");
         
         
         
@@ -102,7 +104,7 @@ public class MainApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
             
-            //TODO set mainapp to this
+            // Give the controller access to the main app.
             DoctorOverviewRootLayoutController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDoctor(doctor);
@@ -171,11 +173,11 @@ public class MainApp extends Application {
         }
     }
     
-    public boolean showPatientOpenDialog(Patient patient) {
+    public boolean showPatientOpenDialog(Consultation consultation) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/doctorSchemeScrollPane.fxml.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/doctorSchemeScrollPane.fxml"));
             ScrollPane page = (ScrollPane) loader.load();
 
             // Create the dialog Stage.
@@ -188,10 +190,10 @@ public class MainApp extends Application {
 
             // Set the patient into the controller.
             
-            /*EditDialogController controller = loader.getController();
+            DoctorSchemeController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setPatient(patient);
-			*/
+            controller.setConsultation(consultation);
+			
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
         	

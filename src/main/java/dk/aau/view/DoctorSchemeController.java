@@ -2,9 +2,14 @@ package dk.aau.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import javax.xml.stream.events.Comment;
+
+import dk.aau.model.Consultation;
 import dk.aau.model.Patient;
 import dk.aau.util.DateUtil;
 
@@ -15,17 +20,22 @@ import dk.aau.util.DateUtil;
  * @author Nicolaj
  */
 
-public class EditDialogController {
+public class DoctorSchemeController {
+		@FXML
+		private Label patientAdressLabel;
+	    @FXML
+	    private Label patientPhoneLabel;
+	    @FXML
+	    private Label emergencyContactNameLabel;
+	    @FXML
+	    private Label emergencyContactPhoneLabel;
+	    
+	    private Consultation consultation;
 	
-	 	@FXML	
-	    private TextField firstNameField;
-	    @FXML
-	    private TextField lastNameField;
-	    @FXML
-	    private TextField consultationTimeField;
 	    
 	    private Stage dialogStage;
 	    private Patient patient;
+	   
 	    private boolean okClicked = false;
 	    
 	    /**
@@ -45,18 +55,20 @@ public class EditDialogController {
 	        this.dialogStage = dialogStage;
 	    }
 
+	    
 	    /**
-	     * Sets the patient to be edited in the dialog.
+	     * Sets the consultation to be edited in the dialog.
 	     * 
 	     * @param patient
 	     */
-	    public void setPatient(Patient patient) {
-	        this.patient = patient;
+	    public void setConsultation(Consultation consultation) {
+	        this.consultation = consultation;
+	        this.patient = consultation.getScheme().getPatient();
 
-	        firstNameField.setText(patient.getFirstName());
-	        lastNameField.setText(patient.getLastName());
-	        consultationTimeField.setText(DateUtil.format(patient.getConsultationDate()));
-	        consultationTimeField.setPromptText("dd.mm.yyyy");
+	        patientAdressLabel.setText(patient.getAdress());
+        	patientPhoneLabel.setText(patient.getPhoneNumber());
+        	emergencyContactNameLabel.setText(patient.getEmergencyContactName());
+        	emergencyContactPhoneLabel.setText(patient.getEmergencyContactPhoneNumber());
 	    }
 	    
 	    /**
@@ -71,13 +83,12 @@ public class EditDialogController {
 	    /**
 	     * Called when the user clicks ok.
 	     */
+	    
 	    @FXML
 	    private void handleOk() {
 	        if (isInputValid()) {
-	            patient.setFirstName(firstNameField.getText());
-	            patient.setLastName(lastNameField.getText());
-	            patient.setConsultationDate((DateUtil.parse(consultationTimeField.getText())));
-
+	            //patient.setFirstName(firstNameField.getText());
+	            
 	            okClicked = true;
 	            dialogStage.close();
 	        }
@@ -99,19 +110,9 @@ public class EditDialogController {
 	    private boolean isInputValid() {
 	        String errorMessage = "";
 
-	        if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-	            errorMessage += "No valid first name!\n"; 
-	        }
-	        if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-	            errorMessage += "No valid last name!\n"; 
-	        }
-	        if (consultationTimeField.getText() == null || consultationTimeField.getText().length() == 0) {
-	            errorMessage += "No valid birthday!\n";
-	        } else {
-	            if (!DateUtil.validDate(consultationTimeField.getText())) {
-	                errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
-	            }
-	        }
+	        //if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
+	        //    errorMessage += "No valid first name!\n"; 
+
 
 	        if (errorMessage.length() == 0) {
 	            return true;

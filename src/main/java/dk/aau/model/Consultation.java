@@ -5,16 +5,17 @@ import javafx.beans.property.StringProperty;
 
 public class Consultation {
 	private final StringProperty consultationTime;
-    private final StringProperty schemeAvailable;
+    
+    private Scheme scheme;
     
     
-    public Consultation() {
-        
-    	
+    public Consultation(Patient patient) {
     	//Some initial dummy data, just for convenient testing.
         this.consultationTime = new SimpleStringProperty("11:00");
-        this.schemeAvailable = new SimpleStringProperty("Ja");
-	}
+        
+        scheme = new Scheme(patient);
+    	
+    }
     
     
     public String getConsultationTime() {
@@ -29,16 +30,12 @@ public class Consultation {
         return consultationTime;
     }
     
-    public String getSchemeAvailable() {
-        return schemeAvailable.get();
-    }
-
-    public void setSchemeAvailable(String available) {
-        this.schemeAvailable.set(available);
+    
+    
+    public Scheme getScheme() {
+    	return scheme;
     }
     
-    public StringProperty schemeAvailableProperty() {
-        return schemeAvailable;
-    }
+    
 
 }

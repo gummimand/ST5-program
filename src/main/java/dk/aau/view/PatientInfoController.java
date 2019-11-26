@@ -104,7 +104,7 @@ public class PatientInfoController {
         //Patient selectedPatient = consultationListcontroller.patientTable.getSelectionModel().getSelectedItem();
     	Patient selectedPatient = currentPatient;
         if (selectedPatient != null) {
-            boolean okClicked = mainApp.showPatientOpenDialog(selectedPatient);
+            boolean okClicked = mainApp.showPatientOpenDialog(selectedPatient.getConsultation());
             if (okClicked) {
                 showPatientDetails(selectedPatient);
             }

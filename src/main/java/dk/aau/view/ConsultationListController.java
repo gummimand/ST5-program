@@ -48,19 +48,14 @@ public class ConsultationListController {
         // Initialize the patient table with the two columns.
     	//From Patient model
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-        //lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
         cprNumberColumn.setCellValueFactory(cellData -> cellData.getValue().patientIDProperty().asObject());
-        //timeColumn.setCellValueFactory(cellData -> (cellData.getValue().consultationDateProperty()));
-        
+
         //From Consultation Model
-        consultationTimeColumn.setCellValueFactory(cellData -> cellData.getValue().consultation.consultationTimeProperty());
-        SchemeAvailableColumn.setCellValueFactory(cellData -> cellData.getValue().consultation.schemeAvailableProperty());
+        consultationTimeColumn.setCellValueFactory(cellData -> cellData.getValue().getConsultation().consultationTimeProperty());
         
-        //TODO set to other controller
-        //showPatientDetails(null);
+        //From Scheme model
+        SchemeAvailableColumn.setCellValueFactory(cellData -> cellData.getValue().getConsultation().getScheme().dataAddedProperty());
         
-       //patientTable.getSelectionModel().selectedItemProperty().addListener(
-               // (observable, oldValue, newValue) -> showPatientDetails(newValue));
     }
 
     /**

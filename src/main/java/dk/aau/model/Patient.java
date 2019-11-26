@@ -32,7 +32,7 @@ public class Patient {
     private final ObjectProperty<PRO> PRO_schedule;
     
     
-    public final Consultation consultation = new Consultation();
+    private final Consultation consultation = new Consultation(this);
 
     /**
      * Default constructor.
@@ -76,6 +76,9 @@ public class Patient {
     
     public StringProperty firstNameProperty() {
         return firstName;
+        
+    	//To return full name.
+    	//return new SimpleStringProperty(firstName.get() + " " + lastName.get());
     }
 
     public String getLastName() {
@@ -173,6 +176,10 @@ public class Patient {
     
     public ObjectProperty<PRO> PROScheduleProperty() {
         return PRO_schedule;
+    }
+    
+    public Consultation getConsultation() {
+    	return consultation;
     }
     
     

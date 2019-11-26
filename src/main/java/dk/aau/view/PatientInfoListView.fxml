@@ -71,7 +71,7 @@
             <Label fx:id="emergencyContactPhoneLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <Button defaultButton="true" layoutX="84.0" layoutY="195.0" mnemonicParsing="false" text="Åben skema" textAlignment="CENTER" AnchorPane.bottomAnchor="14.666666666666657" AnchorPane.leftAnchor="84.0">
+      <Button defaultButton="true" layoutX="84.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleOpenPatient" text="Åben skema" textAlignment="CENTER" AnchorPane.bottomAnchor="14.666666666666657" AnchorPane.leftAnchor="84.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
