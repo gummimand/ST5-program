@@ -7,6 +7,7 @@ import dk.aau.model.ExistingInfo;
 import dk.aau.model.PRO;
 import dk.aau.model.Patient;
 import dk.aau.view.EditDialogController;
+import dk.aau.view.PatientInfoController;
 import dk.aau.view.ConsultationListController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -128,9 +129,9 @@ public class MainApp extends Application {
             
             rootLayout.setCenter(PatientInfoListView);
             // Give the controller access to the main app.
-            //PatientInfoController controller = loader.getController();
-            //controller.setMainApp(this);
-            //controller.setConsultationListController = consultationListcontroller;
+            PatientInfoController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setConsultationListController(consultationListcontroller);
             
         } catch (IOException e) {
             e.printStackTrace();

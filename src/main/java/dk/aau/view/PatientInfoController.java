@@ -1,4 +1,5 @@
 package dk.aau.view;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -49,9 +50,7 @@ public class PatientInfoController {
                 
         //Initialize to no text
         showPatientDetails(null);
-        
-       consultationListcontroller.patientTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showPatientDetails(newValue));
+       
     }
     
     
@@ -62,6 +61,8 @@ public class PatientInfoController {
     //Reference to ConsultationListController to get selected patient to open
     public void setConsultationListController(ConsultationListController ctrl) {
     	consultationListcontroller = ctrl;
+    	consultationListcontroller.patientTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showPatientDetails(newValue));
     	
     }
     
@@ -75,8 +76,12 @@ public class PatientInfoController {
     private void showPatientDetails(Patient patient) {
         if (patient != null) {
             // Fill the labels with info from the patient object.
-        	
-
+        	patientNameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
+        	cprNumberLabel.setText(Integer.toString(patient.getPatientID()));
+        	patientAdressLabel.setText(patient.getAdress());
+        	patientPhoneLabel.setText(patient.getPhoneNumber());
+        	emergencyContactNameLabel.setText(patient.getEmergencyContactName());
+        	emergencyContactPhoneLabel.setText(patient.getEmergencyContactPhoneNumber());
             
             
 
