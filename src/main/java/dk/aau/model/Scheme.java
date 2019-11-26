@@ -25,13 +25,19 @@ public class Scheme {
 
 	
 	public Scheme(Patient patient){
-		this.dischargeSummary =  new SimpleStringProperty("Ikke udfyldt endnu");
-		this.schemeGuide =  new SimpleStringProperty("Kig på spørgsmålene og besvar dem");
-		this.dataVerified =  new SimpleBooleanProperty(false);
-		this.dataAdded = new SimpleStringProperty("Ja");
-		
-		this.patient = patient;
+		this(patient, "Ikke udfyldt endnu", "Kig på spørgsmålene og besvar dem", false, "Ja");
 
+	}
+	
+	public Scheme(Patient patient, String dischargeSummary, String schemeGuide, Boolean dataVerified, String dataAdded) {
+		this.patient = patient;
+		
+		this.dischargeSummary =  new SimpleStringProperty(dischargeSummary);
+		this.schemeGuide =  new SimpleStringProperty(schemeGuide);
+		this.dataVerified =  new SimpleBooleanProperty(dataVerified);
+		this.dataAdded = new SimpleStringProperty(dataAdded);
+		
+		
 	}
 	
 	public String getDischargeSummary() {

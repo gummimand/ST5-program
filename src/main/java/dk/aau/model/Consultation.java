@@ -9,9 +9,14 @@ public class Consultation {
     private Scheme scheme;
     
     
+       
     public Consultation(Patient patient) {
+    	this(patient,"11:00");
+    	
+    }
+    public Consultation(Patient patient, String consultationTime) {
     	//Some initial dummy data, just for convenient testing.
-        this.consultationTime = new SimpleStringProperty("11:00");
+        this.consultationTime = new SimpleStringProperty("consultationTime");
         
         scheme = new Scheme(patient);
     	
