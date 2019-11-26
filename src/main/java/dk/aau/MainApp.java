@@ -3,12 +3,14 @@ package dk.aau;
 
 import java.io.IOException;
 
+import dk.aau.model.Doctor;
 import dk.aau.model.ExistingInfo;
 import dk.aau.model.PRO;
 import dk.aau.model.Patient;
 import dk.aau.view.EditDialogController;
 import dk.aau.view.PatientInfoController;
 import dk.aau.view.ConsultationListController;
+import dk.aau.view.DoctorOverviewRootLayoutController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +32,7 @@ public class MainApp extends Application {
      */
     private ObservableList<Patient> patientData = FXCollections.observableArrayList();
     private ConsultationListController consultationListcontroller;
+    private Doctor doctor;
 
     /**
      * Constructor
@@ -46,9 +49,13 @@ public class MainApp extends Application {
         patientData.add(new Patient("Stefan", "Meier"));
         patientData.add(new Patient("Martin", "Mueller"));
         
+        doctor = new Doctor();
         
         // Test for patient specific questions
         patientData.get(0).getPROSchedule().setAnswer1("Tirsdag d. 11/11");
+        
+        
+        
         
         /*
         //Test for updating patient with existing info
@@ -94,6 +101,14 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            
+            //TODO set mainapp to this
+            DoctorOverviewRootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDoctor(doctor);
+            
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

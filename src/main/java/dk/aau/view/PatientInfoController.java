@@ -1,17 +1,11 @@
 package dk.aau.view;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 
-import java.time.LocalDate;
 
-import dk.aau.util.DateUtil;
 import dk.aau.MainApp;
 import dk.aau.model.Patient;
 
@@ -31,6 +25,7 @@ public class PatientInfoController {
     private Label emergencyContactPhoneLabel;
     
     private ConsultationListController consultationListcontroller;
+    private Patient currentPatient;
     
     
     
@@ -75,6 +70,7 @@ public class PatientInfoController {
      */
     private void showPatientDetails(Patient patient) {
         if (patient != null) {
+        	currentPatient = patient;
             // Fill the labels with info from the patient object.
         	patientNameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
         	cprNumberLabel.setText(Integer.toString(patient.getPatientID()));
@@ -104,7 +100,9 @@ public class PatientInfoController {
      */
     @FXML
     private void handleOpenPatient() {
-        Patient selectedPatient = consultationListcontroller.patientTable.getSelectionModel().getSelectedItem();
+    	
+        //Patient selectedPatient = consultationListcontroller.patientTable.getSelectionModel().getSelectedItem();
+    	Patient selectedPatient = currentPatient;
         if (selectedPatient != null) {
             boolean okClicked = mainApp.showPatientOpenDialog(selectedPatient);
             if (okClicked) {
