@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="225.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="450.0" prefHeight="225.0" prefWidth="250.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="25.0" prefWidth="250.0" style="-fx-background-color: BFDBE2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="56.0" layoutY="4.0" text="Skemaer der afventer upload" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="30.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <TableView layoutY="25.0" prefHeight="200.0" prefWidth="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Dato" />
+                <TableColumn prefWidth="75.0" text="Navn" />
+                  <TableColumn prefWidth="75.0" text="CPR-nr." />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

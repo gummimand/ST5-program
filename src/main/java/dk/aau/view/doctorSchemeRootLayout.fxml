@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="49.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="32.0" layoutY="17.0" />
+            <Label layoutX="26.0" layoutY="17.0" text="Patientnavn" />
+            <Label layoutX="124.0" layoutY="17.0" text="CPR" />
+            <Label layoutX="187.0" layoutY="17.0" text="Konsulationstidspunkt" />
+            <Label layoutX="523.0" layoutY="17.0" text="LægeID:" AnchorPane.leftAnchor="457.0" AnchorPane.rightAnchor="197.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="45.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="613.0" layoutY="11.0" mnemonicParsing="false" text="Upload" AnchorPane.rightAnchor="32.0" />
+            <Button layoutX="537.0" layoutY="11.0" mnemonicParsing="false" text="Tilbage" AnchorPane.rightAnchor="100.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

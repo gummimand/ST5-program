@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane centerShape="false" fitToWidth="true" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="1200.0" prefWidth="700.0">
+         <children>
+            <Label layoutX="25.0" layoutY="145.0" prefHeight="25.0" prefWidth="179.0" text="Eksisterende oplysninger" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="481.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="175.0" prefHeight="17.0" prefWidth="604.0" text="Årsag for henvisning til Reumatologisk Afdeling, og hvornår symptomerne startede">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextArea layoutX="25.0" layoutY="200.0" prefHeight="70.0" prefWidth="350.0" promptText="Indhentede oplysninger" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="323.0" />
+            <TextArea editable="false" layoutX="381.0" layoutY="200.0" prefHeight="120.0" prefWidth="295.0" promptText="Lægenote" AnchorPane.rightAnchor="8.333333333333371" />
+            <Label layoutX="25.0" layoutY="340.0" prefHeight="17.0" prefWidth="604.0" text="Medicin patienten tager i øjeblikket">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextArea layoutX="25.0" layoutY="365.0" prefHeight="70.0" prefWidth="350.0" promptText="Indhentede oplysninger" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="323.0" />
+            <TextArea editable="false" layoutX="381.0" layoutY="365.0" prefHeight="120.0" prefWidth="295.0" promptText="Lægenote" AnchorPane.rightAnchor="8.333333333333371" />
+            <Label layoutX="25.0" layoutY="515.0" text="Patient rapportede oplysninger">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField alignment="CENTER" editable="false" layoutX="25.0" layoutY="570.0" prefHeight="25.0" prefWidth="41.0" text="Ja">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <TextArea layoutX="28.0" layoutY="937.0" prefHeight="200.0" prefWidth="604.0" promptText="Epikrise" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="53.0" />
+            <TextField alignment="CENTER" editable="false" layoutX="90.0" layoutY="570.0" prefHeight="25.0" prefWidth="41.0" text="Nej">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="25.0" layoutY="25.0" text="Stamdata" AnchorPane.leftAnchor="25.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="24.0" layoutY="60.0" prefHeight="17.0" prefWidth="56.0" text="Adresse:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="24.0" layoutY="95.0" prefHeight="17.0" prefWidth="100.0" text="Pårørendes navn:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="225.0" layoutY="60.0" prefHeight="17.0" prefWidth="25.0" text="Tlf:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="225.0" layoutY="95.0" prefHeight="17.0" prefWidth="87.0" text="Pårørende tlf:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="131.0" layoutY="60.0" prefHeight="17.0" prefWidth="56.0" text="adresse" />
+            <Label layoutX="131.0" layoutY="95.0" prefHeight="17.0" prefWidth="91.0" text="pårørende navn" />
+            <Label layoutX="312.0" layoutY="60.0" prefHeight="17.0" prefWidth="100.0" text="tlf." />
+            <Label layoutX="312.0" layoutY="95.0" prefHeight="17.0" prefWidth="100.0" text="pårørende tlf." />
+            <TextArea layoutX="25.0" layoutY="280.0" prefHeight="42.0" prefWidth="350.0" promptText="Patientkommentar" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="323.0" />
+            <TextArea layoutX="25.0" layoutY="445.0" prefHeight="42.0" prefWidth="350.0" promptText="Patientkommentar" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="323.0" />
+            <Label layoutX="25.0" layoutY="545.0" prefHeight="17.0" prefWidth="604.0" text="Er der rygsygdom, gigtsygdom, tarmsygdom eller psoreasis i din nærmeste familie?">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="715.0" prefHeight="17.0" prefWidth="604.0" text="Gener i øjne (synsforstyrrelse, smerte, betændelse, røde øjne, tørhed)">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextArea editable="false" layoutX="381.0" layoutY="570.0" prefHeight="120.0" prefWidth="295.0" promptText="Lægenote" AnchorPane.rightAnchor="8.333333333333371" />
+            <Label layoutX="25.0" layoutY="900.0" text="Epikrise">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextArea layoutX="27.0" layoutY="605.0" prefHeight="83.0" prefWidth="350.0" promptText="Patientrapporteret oplysning" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="323.0" />
+            <TextField alignment="CENTER" editable="false" layoutX="25.0" layoutY="744.0" prefHeight="25.0" prefWidth="41.0" text="Ja">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField alignment="CENTER" editable="false" layoutX="90.0" layoutY="744.0" prefHeight="25.0" prefWidth="41.0" text="Nej">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <TextArea layoutX="28.0" layoutY="780.0" prefHeight="83.0" prefWidth="335.0" promptText="Patientrapporteret oplysning" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="321.3333333333333" />
+            <TextArea editable="false" layoutX="381.0" layoutY="744.0" prefHeight="120.0" prefWidth="295.0" promptText="Lægenote" AnchorPane.rightAnchor="8.333333333333371" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
