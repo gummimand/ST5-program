@@ -1,7 +1,9 @@
 package dk.aau.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,80 +11,66 @@ import javafx.beans.property.StringProperty;
 import javafx.util.Pair;
 
 
-public class PRO {
+public class PRO extends Question{
+	private static int ID = 40;
+	public final IntegerProperty proID;
 	
-    private final ObjectProperty<Pair<String,String>> question1;
-    private final StringProperty question2;
-    private final StringProperty question3;
+    //private final ObjectProperty<Pair<String,String>> question1;
+    private StringProperty questionTextAnswer = new SimpleStringProperty("");
+    private BooleanProperty questionBoolAnswer = new SimpleBooleanProperty(false);
 
 	
     /**
      * Constructor with inistialisations
+     * @param question question for superclass
      */
-    public PRO() {
-		question1 = new SimpleObjectProperty<Pair<String,String>>(new Pair<String,String>("Hvornår havde du sidst smerter?","I går"));
-		question2 = new SimpleStringProperty("Hvor mange smerter havde du fra 1-10?");
-		question3 = new SimpleStringProperty("Hvor mange cigaretter ryger du dagligt?");
-		
+    public PRO(String question) {
+    	super(question);
+    	this.proID = makeID();
+    			
 	}
     
     
     /**
      * 
-     * @param q1 first question
-     * @param q2 second question
-     * @param q3 third question
+     * @param question question for superclass
+     * @param answer answer for question
      */
-    public PRO(String q1, String a1, String q2, String q3) {
-    	question1 = new SimpleObjectProperty<Pair<String,String>>(new Pair<String,String>(q1,a1));
-		question2 = new SimpleStringProperty(q2);
-		question3 = new SimpleStringProperty(q3);
+    public PRO(String question, String answer) {
+    	super(question);
+    	questionTextAnswer= new SimpleStringProperty(answer);
+    	this.proID = makeID();
+    	
 		
 	}
 	
 	
-	public Pair<String,String> getQuestion1() {
-        return question1.get();
+    
+    public String getquestionTextAnswer() {
+        return questionTextAnswer.get();
     }
 
-    public void setQuestion1(String question) {
-        this.question1.set(new Pair<String,String>(question,""));
+    public void setQuestionTextAnswer(String questionTextAnswer) {
+        this.questionTextAnswer.set(questionTextAnswer);
     }
     
-    public ObjectProperty<Pair<String,String>> question1Property() {
-        return question1;
+    public StringProperty questionTextAnswerProperty() {
+        return questionTextAnswer;
     }
     
-    public String getQuestion2() {
-        return question2.get();
+    public Boolean getquestionBoolAnswer() {
+        return questionBoolAnswer.get();
     }
 
-    public void setQuestion22(String question) {
-        this.question2.set(question);
+    public void setQuestionBoolAnswer(Boolean questionBoolAnswer) {
+        this.questionBoolAnswer.set(questionBoolAnswer);
     }
     
-    public StringProperty question2Property() {
-        return question2;
-    }
-    
-    public String getQuestion3() {
-        return question3.get();
+    public BooleanProperty questionBoolAnswerProperty() {
+        return questionBoolAnswer;
     }
 
-    public void setQuestion3(String question) {
-        this.question3.set(question);
+    private SimpleIntegerProperty makeID(){
+    	return new SimpleIntegerProperty(ID++);
     }
-    
-    public StringProperty question3Property() {
-        return question3;
-    }
-    
-    /**
-     * Function updates answer to question 1
-     * @param answer new answer to input
-     */
-    public void setAnswer1(String answer) {
-        this.question1.set(new Pair<String,String>(question1.get().getKey(),answer));
-    }
-
 }

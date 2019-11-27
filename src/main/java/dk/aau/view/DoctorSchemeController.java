@@ -3,14 +3,22 @@ package dk.aau.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 import javax.xml.stream.events.Comment;
 
 import dk.aau.model.Consultation;
+import dk.aau.model.Doctor;
+import dk.aau.model.ExistingInfo;
+import dk.aau.model.PRO;
 import dk.aau.model.Patient;
+import dk.aau.model.Scheme;
 import dk.aau.util.DateUtil;
 
 
@@ -21,6 +29,15 @@ import dk.aau.util.DateUtil;
  */
 
 public class DoctorSchemeController {
+		
+		//Attributes to show
+		
+		@FXML
+	    private Label patientNameLabel;
+	    @FXML
+	    private Label cprNumberLabel;
+	    @FXML
+	    private Label consultationTimeLabel;
 		@FXML
 		private Label patientAdressLabel;
 	    @FXML
@@ -29,12 +46,50 @@ public class DoctorSchemeController {
 	    private Label emergencyContactNameLabel;
 	    @FXML
 	    private Label emergencyContactPhoneLabel;
+	    @FXML
+	    private Label doctorIDLabel;
+	    @FXML
+	    private Label existingInfoQuestion1Label;
+	    @FXML
+	    private TextArea existingInfoText1;
+	    @FXML
+	    private TextArea existingInfoPatientCommentText1;
+	    @FXML
+	    private TextArea existingInfoDoctorCommentText1;
+	    @FXML
+	    private Label existingInfoQuestion2Label;
+	    @FXML
+	    private TextArea existingInfoText2;
+	    @FXML
+	    private TextArea existingInfoPatientCommentText2;
+	    @FXML
+	    private TextArea existingInfoDoctorCommentText2;
+	    @FXML
+	    private Label PROQuestion1Label;
+	    @FXML
+	    private TextArea proAnswerText1;
+	    @FXML
+	    private TextArea proAnswerDoctorCommentText1;
+	    @FXML
+	    private Label PROQuestion2Label;
+	    @FXML
+	    private TextArea proAnswerText2;
+	    @FXML
+	    private TextArea proAnswerDoctorCommentText2;
+	    @FXML
+	    private TextArea EpicrisisText;
+		
 	    
 	    private Consultation consultation;
 	
 	    
 	    private Stage dialogStage;
 	    private Patient patient;
+	    private Doctor doctor;
+	    private ExistingInfo ex1;
+	    private ExistingInfo ex2;
+	    private PRO pro1;
+	    private PRO pro2;
 	   
 	    private boolean okClicked = false;
 	    
@@ -65,10 +120,49 @@ public class DoctorSchemeController {
 	        this.consultation = consultation;
 	        this.patient = consultation.getScheme().getPatient();
 
+	        patientNameLabel.setText(patient.getFirstName());
+	        cprNumberLabel.setText(patient.getCprNr());
+	        consultationTimeLabel.setText(consultation.getConsultationTime());
 	        patientAdressLabel.setText(patient.getAdress());
         	patientPhoneLabel.setText(patient.getPhoneNumber());
         	emergencyContactNameLabel.setText(patient.getEmergencyContactName());
         	emergencyContactPhoneLabel.setText(patient.getEmergencyContactPhoneNumber());
+        	
+        	//TODO hardcoded existings infos = remove and make generic.
+        	ex1 = consultation.getScheme().getExistingInformationList().get(0);
+        	existingInfoQuestion1Label.setText(ex1.getQuestion());
+        	existingInfoText1.setText(ex1.getobtainedInfoText());
+    	    existingInfoPatientCommentText1.setText(ex1.getpatientCommentText());
+    	    existingInfoDoctorCommentText1.setText(ex1.getdoctorNote());
+    	    
+    	    ex2 = consultation.getScheme().getExistingInformationList().get(1);
+        	existingInfoQuestion2Label.setText(ex2.getQuestion());
+    	    existingInfoText2.setText(ex2.getobtainedInfoText());
+    	    existingInfoPatientCommentText2.setText(ex2.getpatientCommentText());
+    	    existingInfoDoctorCommentText2.setText(ex2.getdoctorNote());
+    	    
+    	    pro1 = consultation.getScheme().getProList().get(0);
+    	    PROQuestion1Label.setText(pro1.getQuestion());
+    	    proAnswerText1.setText(pro1.getquestionTextAnswer());
+    	    proAnswerDoctorCommentText1.setText(pro1.getdoctorNote());
+    	    
+    	    pro2 = consultation.getScheme().getProList().get(1);
+    	    PROQuestion2Label.setText(pro2.getQuestion());
+    	    proAnswerText2.setText(pro2.getquestionTextAnswer());
+    	    proAnswerDoctorCommentText2.setText(pro2.getdoctorNote());
+    	    EpicrisisText.setText(consultation.getScheme().getDischargeSummary());
+        	
+	    }
+	    
+	    /**
+	     * Sets the doctor to be shown in the dialog.
+	     * 
+	     * @param patient
+	     */
+	    public void setDoctor(Doctor doctor) {
+	        this.doctor = doctor;
+	        doctorIDLabel.setText(doctor.getDoctorName());
+	        
 	    }
 	    
 	    /**
@@ -85,9 +179,21 @@ public class DoctorSchemeController {
 	     */
 	    
 	    @FXML
-	    private void handleOk() {
+	    private void handleSaveButtonClicked() {
 	        if (isInputValid()) {
 	            //patient.setFirstName(firstNameField.getText());
+	        	ex1.setobtainedInfoText(existingInfoText1.getText());
+	        	ex1.setPatientCommentText(existingInfoPatientCommentText1.getText());
+	        	ex1.setDoctorNote(existingInfoDoctorCommentText1.getText());
+	    	    
+	        	// Show the error message.
+	        	Alert alert = new Alert(AlertType.INFORMATION);
+	            alert.initOwner(dialogStage);
+	            alert.setTitle("Gem");
+	            alert.setHeaderText("");
+	            alert.setContentText("Data gemt!");
+	            
+	            alert.showAndWait();
 	            
 	            okClicked = true;
 	            dialogStage.close();
@@ -98,8 +204,18 @@ public class DoctorSchemeController {
 	     * Called when the user clicks cancel.
 	     */
 	    @FXML
-	    private void handleCancel() {
-	        dialogStage.close();
+	    private void handleBackButtonClicked() {
+	    	// Show the error message.
+        	Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Tilbage");
+            alert.setHeaderText("");
+            alert.setContentText("Vil du lukke uden at gemme?");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK)
+            	dialogStage.close();
+	        
 	    }
 	    
 	    /**

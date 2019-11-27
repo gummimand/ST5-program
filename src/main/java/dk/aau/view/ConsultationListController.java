@@ -21,7 +21,7 @@ public class ConsultationListController {
     @FXML
     private TableColumn<Patient, String> firstNameColumn;
     @FXML
-    private TableColumn<Patient, Integer> cprNumberColumn;
+    private TableColumn<Patient, String> cprNumberColumn;
     @FXML
     private TableColumn<Patient, String> consultationTimeColumn;
     @FXML
@@ -48,7 +48,8 @@ public class ConsultationListController {
         // Initialize the patient table with the two columns.
     	//From Patient model
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-        cprNumberColumn.setCellValueFactory(cellData -> cellData.getValue().patientIDProperty().asObject());
+        cprNumberColumn.setCellValueFactory(cellData -> cellData.getValue().cprNrProperty());
+        //cprNumberColumn.setCellValueFactory(cellData -> cellData.getValue().patientIDProperty().asObject());
 
         //From Consultation Model
         consultationTimeColumn.setCellValueFactory(cellData -> cellData.getValue().getConsultation().consultationTimeProperty());

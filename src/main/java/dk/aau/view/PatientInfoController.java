@@ -73,7 +73,7 @@ public class PatientInfoController {
         	currentPatient = patient;
             // Fill the labels with info from the patient object.
         	patientNameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
-        	cprNumberLabel.setText(Integer.toString(patient.getPatientID()));
+        	cprNumberLabel.setText(patient.getCprNr());
         	patientAdressLabel.setText(patient.getAdress());
         	patientPhoneLabel.setText(patient.getPhoneNumber());
         	emergencyContactNameLabel.setText(patient.getEmergencyContactName());

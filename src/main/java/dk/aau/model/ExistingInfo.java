@@ -1,5 +1,6 @@
 package dk.aau.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -9,38 +10,64 @@ import javafx.beans.property.StringProperty;
 
 
 
-public class ExistingInfo {
+public class ExistingInfo extends Question{
+	private static int ID = 50;
+	public final IntegerProperty existingInfoID;
 	
-	private final StringProperty firstName;
-    private final StringProperty lastName;
+	private StringProperty patientCommentText = new SimpleStringProperty("");
+    private StringProperty obtainedInfoText = new SimpleStringProperty("");
     
-    public ExistingInfo(String firstName, String lastName) {
-    	this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
+    /**
+     * Constructor with inistialisations
+     * @param question question for superclass
+     */
+    public ExistingInfo(String question) {
+    	super(question);
+    	this.existingInfoID = makeID();
+    			
 	}
     
-    public String getFirstName() {
-        return firstName.get();
+    
+    /**
+     *  Constructor with inistialisations
+     * @param question question for superclass
+     * @param answer obtained for question
+     */
+    public ExistingInfo(String question, String obtainedInfo) {
+    	super(question);
+    	obtainedInfoText= new SimpleStringProperty(obtainedInfo);
+    	this.existingInfoID = makeID();
+    	
+		
+	}
+	
+	
+    
+    public String getpatientCommentText() {
+        return patientCommentText.get();
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
+    public void setPatientCommentText(String patientCommentText) {
+        this.patientCommentText.set(patientCommentText);
     }
     
-    public StringProperty firstNameProperty() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName.get();
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName.set(lastName);
+    public StringProperty patientCommentTextProperty() {
+        return patientCommentText;
     }
     
-    public StringProperty lastNameProperty() {
-        return lastName;
+    public String getobtainedInfoText() {
+        return obtainedInfoText.get();
     }
 
+    public void setobtainedInfoText(String obtainedInfoText) {
+        this.obtainedInfoText.set(obtainedInfoText);
+    }
+    
+    public StringProperty obtainedInfoTextProperty() {
+        return obtainedInfoText;
+    }
+
+    private SimpleIntegerProperty makeID(){
+    	return new SimpleIntegerProperty(ID++);
+    }
 }

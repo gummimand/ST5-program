@@ -53,7 +53,7 @@ public class MainApp extends Application {
         doctor = new Doctor();
         
         // Test for patient specific questions
-        patientData.get(0).getPROSchedule().setAnswer1("Tirsdag d. 11/11");
+        patientData.get(0).getConsultation().getScheme().getProList().get(0).setQuestionTextAnswer(("Min farmor havde det også"));
         patientData.get(0).setAdress("Hans' Adresse");
         
         
@@ -178,7 +178,7 @@ public class MainApp extends Application {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/doctorSchemeScrollPane.fxml"));
-            ScrollPane page = (ScrollPane) loader.load();
+            AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
@@ -193,10 +193,12 @@ public class MainApp extends Application {
             DoctorSchemeController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setConsultation(consultation);
+            controller.setDoctor(doctor);
 			
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
         	
+            //TODO change when ok is implemented
             return false;
             //return controller.isOkClicked();
         } catch (IOException e) {

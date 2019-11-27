@@ -20,16 +20,15 @@ public class Patient {
 
     private final StringProperty firstName;
     private final StringProperty lastName;
-    private final IntegerProperty patientID;
+    private final StringProperty cprNr;
+    public final IntegerProperty patientID;
     private final StringProperty adress;
     private final StringProperty phoneNumber;
     private final StringProperty emergencyContactName;
     private final StringProperty emergencyContactPhoneNumber;
     
     
-    private final ObjectProperty<LocalDate> consultationDate;//TODO remove.
     
-    private final ObjectProperty<PRO> PRO_schedule;
     
     
     private final Consultation consultation = new Consultation(this);
@@ -58,11 +57,12 @@ public class Patient {
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
         this.emergencyContactName = new SimpleStringProperty(emergencyContactName);
         this.emergencyContactPhoneNumber = new SimpleStringProperty(emergencyContactPhoneNumber);
+        
                 
         // Some initial dummy data, just for convenient testing.
         this.patientID = makeID();
-        this.consultationDate = new SimpleObjectProperty<LocalDate>(LocalDate.of(2019, 1, 1));//TODO remove
-        this.PRO_schedule = new SimpleObjectProperty<PRO>(new PRO());
+        this.cprNr = new SimpleStringProperty(makeCPR());
+
     	
     }
     
@@ -91,6 +91,18 @@ public class Patient {
     
     public StringProperty lastNameProperty() {
         return lastName;
+    }
+    
+    public String getCprNr() {
+        return cprNr.get();
+    }
+
+    public void setCprNr(String cprNr) {
+        this.cprNr.set(cprNr);
+    }
+    
+    public StringProperty cprNrProperty() {
+        return cprNr;
     }
 
     public int getPatientID() {
@@ -153,31 +165,6 @@ public class Patient {
         return emergencyContactPhoneNumber;
     }
     
-
-    public LocalDate getConsultationDate() {
-        return consultationDate.get();
-    }
-
-    public void setConsultationDate(LocalDate consultationDate) {
-        this.consultationDate.set(consultationDate);
-    }
-    
-    public ObjectProperty<LocalDate> consultationDateProperty() {
-        return consultationDate;
-    }
-    
-    public PRO getPROSchedule() {
-        return PRO_schedule.get();
-    }
-
-    public void setPROSchedule(PRO proSchedule) {
-        this.PRO_schedule.set(proSchedule);
-    }
-    
-    public ObjectProperty<PRO> PROScheduleProperty() {
-        return PRO_schedule;
-    }
-    
     public Consultation getConsultation() {
     	return consultation;
     }
@@ -185,5 +172,8 @@ public class Patient {
     
     private SimpleIntegerProperty makeID(){
     	return new SimpleIntegerProperty(ID++);
+    }
+    private String makeCPR() {
+    	return "010101-111" + Integer.toString(patientID.get());
     }
 }
