@@ -30,24 +30,27 @@ import dk.aau.util.DateUtil;
 
 public class DoctorSchemeController {
 		
-		//Attributes to show
-		
+		//Attributes to show in rootpane
 		@FXML
 	    private Label patientNameLabel;
 	    @FXML
 	    private Label cprNumberLabel;
 	    @FXML
 	    private Label consultationTimeLabel;
+	    @FXML
+	    private Label doctorIDLabel;
+	    
+	    //Below is master data
 		@FXML
 		private Label patientAdressLabel;
 	    @FXML
 	    private Label patientPhoneLabel;
 	    @FXML
-	    private Label emergencyContactNameLabel;
+	    private TextField emergencyContactNameTextField;
 	    @FXML
 	    private Label emergencyContactPhoneLabel;
-	    @FXML
-	    private Label doctorIDLabel;
+	    
+	    //Below is questions
 	    @FXML
 	    private Label existingInfoQuestion1Label;
 	    @FXML
@@ -91,7 +94,7 @@ public class DoctorSchemeController {
 	    private PRO pro1;
 	    private PRO pro2;
 	   
-	    private boolean okClicked = false;
+	    private boolean dataSaved = false;
 	    
 	    /**
 	     * Initializes the controller class. This method is automatically called
@@ -125,7 +128,7 @@ public class DoctorSchemeController {
 	        consultationTimeLabel.setText(consultation.getConsultationTime());
 	        patientAdressLabel.setText(patient.getAdress());
         	patientPhoneLabel.setText(patient.getPhoneNumber());
-        	emergencyContactNameLabel.setText(patient.getEmergencyContactName());
+        	emergencyContactNameTextField.setText(patient.getEmergencyContactName());
         	emergencyContactPhoneLabel.setText(patient.getEmergencyContactPhoneNumber());
         	
         	//TODO hardcoded existings infos = remove and make generic.
@@ -171,7 +174,7 @@ public class DoctorSchemeController {
 	     * @return
 	     */
 	    public boolean isOkClicked() {
-	        return okClicked;
+	        return dataSaved;
 	    }
 
 	    /**
@@ -185,6 +188,8 @@ public class DoctorSchemeController {
 	        	ex1.setobtainedInfoText(existingInfoText1.getText());
 	        	ex1.setPatientCommentText(existingInfoPatientCommentText1.getText());
 	        	ex1.setDoctorNote(existingInfoDoctorCommentText1.getText());
+	        	patient.setEmergencyContactName(emergencyContactNameTextField.getText());
+	        	
 	    	    
 	        	// Show the error message.
 	        	Alert alert = new Alert(AlertType.INFORMATION);
@@ -195,8 +200,9 @@ public class DoctorSchemeController {
 	            
 	            alert.showAndWait();
 	            
-	            okClicked = true;
-	            dialogStage.close();
+	            dataSaved = true;
+	            
+	            //dialogStage.close();
 	        }
 	    }
 
@@ -205,16 +211,21 @@ public class DoctorSchemeController {
 	     */
 	    @FXML
 	    private void handleBackButtonClicked() {
-	    	// Show the error message.
-        	Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Tilbage");
-            alert.setHeaderText("");
-            alert.setContentText("Vil du lukke uden at gemme?");
-            
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK)
-            	dialogStage.close();
+	    	//If user has saved (works only once)
+	    	if(!isOkClicked()){
+		    	// Show the error message.
+	        	Alert alert = new Alert(AlertType.CONFIRMATION);
+	            alert.initOwner(dialogStage);
+	            alert.setTitle("Tilbage");
+	            alert.setHeaderText("");
+	            alert.setContentText("Vil du lukke uden at gemme?");
+	            
+	            Optional<ButtonType> result = alert.showAndWait();
+	            if (result.get() == ButtonType.OK)
+	            	dialogStage.close();
+	    	}
+	    	else
+	    		dialogStage.close();
 	        
 	    }
 	    
