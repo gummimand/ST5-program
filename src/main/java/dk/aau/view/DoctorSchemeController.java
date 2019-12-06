@@ -25,7 +25,7 @@ import dk.aau.util.DateUtil;
 /**
  * Dialog to edit details of a patient.
  * 
- * @author Nicolaj
+ * @author st5-19gr5403
  */
 
 public class DoctorSchemeController {
@@ -80,7 +80,7 @@ public class DoctorSchemeController {
 	    @FXML
 	    private TextArea proAnswerDoctorCommentText2;
 	    @FXML
-	    private TextArea EpicrisisText;
+	    private TextArea journalNote;
 		
 	    
 	    private Consultation consultation;
@@ -102,6 +102,7 @@ public class DoctorSchemeController {
 	     */
 	    @FXML
 	    private void initialize() {
+	    	
 	    }	
 
 	    /**
@@ -121,15 +122,9 @@ public class DoctorSchemeController {
 	     */
 	    public void setConsultation(Consultation consultation) {
 	        this.consultation = consultation;
-	        this.patient = consultation.getScheme().getPatient();
-
-	        patientNameLabel.setText(patient.getFirstName());
-	        cprNumberLabel.setText(patient.getCprNr());
-	        consultationTimeLabel.setText(consultation.getConsultationTime());
-	        patientAdressLabel.setText(patient.getAdress());
-        	patientPhoneLabel.setText(patient.getPhoneNumber());
-        	emergencyContactNameTextField.setText(patient.getEmergencyContactName());
-        	emergencyContactPhoneLabel.setText(patient.getEmergencyContactPhoneNumber());
+	        patient = consultation.getScheme().getPatient();
+	        
+	        showPatientDetails();
         	
         	//TODO hardcoded existings infos = remove and make generic.
         	ex1 = consultation.getScheme().getExistingInformationList().get(0);
@@ -153,8 +148,18 @@ public class DoctorSchemeController {
     	    PROQuestion2Label.setText(pro2.getQuestion());
     	    proAnswerText2.setText(pro2.getquestionTextAnswer());
     	    proAnswerDoctorCommentText2.setText(pro2.getdoctorNote());
-    	    EpicrisisText.setText(consultation.getScheme().getDischargeSummary());
+    	    journalNote.setText(consultation.getScheme().getJournalNote());
         	
+	    }
+	    private void showPatientDetails(){
+	    	patientNameLabel.setText(patient.getFirstName());
+	        cprNumberLabel.setText(patient.getCprNr());
+	        consultationTimeLabel.setText(consultation.getConsultationTime());
+	        patientAdressLabel.setText(patient.getAdress());
+        	patientPhoneLabel.setText(patient.getPhoneNumber());
+        	emergencyContactNameTextField.setText(patient.getEmergencyContactName());
+        	emergencyContactPhoneLabel.setText(patient.getEmergencyContactPhoneNumber());
+	    	
 	    }
 	    
 	    /**
@@ -189,6 +194,10 @@ public class DoctorSchemeController {
 	        	ex1.setPatientCommentText(existingInfoPatientCommentText1.getText());
 	        	ex1.setDoctorNote(existingInfoDoctorCommentText1.getText());
 	        	patient.setEmergencyContactName(emergencyContactNameTextField.getText());
+	        	
+	        	pro1.setDoctorNote(proAnswerDoctorCommentText1.getText());
+	        	pro2.setDoctorNote(proAnswerDoctorCommentText2.getText());
+	        	consultation.getScheme().setJournalNote(journalNote.getText());
 	        	
 	    	    
 	        	// Show the error message.

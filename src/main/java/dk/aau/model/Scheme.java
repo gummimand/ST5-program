@@ -17,14 +17,14 @@ public class Scheme {
 	private static int ID = 10;
 	public final IntegerProperty schemeID;
 	
-	private final StringProperty dischargeSummary;
+	private final StringProperty journalNote;
 	private final StringProperty schemeGuide;
 	private final BooleanProperty dataVerified;
 	private final StringProperty dataAdded;
 	
 	private final Patient patient;
-	private ObservableList<PRO> proList = FXCollections.observableArrayList(); 
-	private ObservableList<ExistingInfo> existingInformationList = FXCollections.observableArrayList(); 
+	private final ObservableList<PRO> proList = FXCollections.observableArrayList(); 
+	private final ObservableList<ExistingInfo> existingInformationList = FXCollections.observableArrayList(); 
 	
 	
 	
@@ -35,10 +35,10 @@ public class Scheme {
 
 	}
 	
-	public Scheme(Patient patient, String dischargeSummary, String schemeGuide, Boolean dataVerified, String dataAdded) {
+	public Scheme(Patient patient, String journalNote, String schemeGuide, Boolean dataVerified, String dataAdded) {
 		this.patient = patient;
 		
-		this.dischargeSummary =  new SimpleStringProperty(dischargeSummary);
+		this.journalNote =  new SimpleStringProperty(journalNote);
 		this.schemeGuide =  new SimpleStringProperty(schemeGuide);
 		this.dataVerified =  new SimpleBooleanProperty(dataVerified);
 		this.dataAdded = new SimpleStringProperty(dataAdded);
@@ -66,16 +66,16 @@ public class Scheme {
 		
 	}
 
-	public String getDischargeSummary() {
-		return dischargeSummary.get();
+	public String getJournalNote() {
+		return journalNote.get();
 	}
 	
-	public void setDischargeSummary(String dischargeSummary) {
-		this.dischargeSummary.set(dischargeSummary);
+	public void setJournalNote(String dischargeSummary) {
+		this.journalNote.set(dischargeSummary);
 	}
 
-	public StringProperty DischargeSummaryProperty() {
-		return dischargeSummary;
+	public StringProperty journalNoteProperty() {
+		return journalNote;
 	}
 	
 	public String getschemeGuide() {
@@ -124,11 +124,14 @@ public class Scheme {
 	public List<PRO> getProList() {
 		return proList;
 	}
-	/**
+	/** 
+	 * Set an entire new list as the list of PRO's
 	 * @param proList the proList to set
 	 */
 	public void setProList(ObservableList<PRO> proList) {
-		this.proList = proList;
+		this.proList.clear();
+		proList.forEach(e -> this.proList.add(e));
+		
 	}
 	/**
 	 * Add PRO to pro list
@@ -149,7 +152,8 @@ public class Scheme {
 	 * @param existingInformationList the existingInformationList to set
 	 */
 	public void setExistingInformationList(ObservableList<ExistingInfo> existingInformationList) {
-		this.existingInformationList = existingInformationList;
+		this.existingInformationList.clear();
+		existingInformationList.forEach(e -> this.existingInformationList.add(e));
 	}
 	
 	private void addToExistingInfoList(ExistingInfo ex) {

@@ -16,7 +16,7 @@ public class ExistingInfo extends Question{
 	
 	private StringProperty patientCommentText = new SimpleStringProperty("");
     private StringProperty obtainedInfoText = new SimpleStringProperty("");
-    
+   
     /**
      * Constructor with inistialisations
      * @param question question for superclass

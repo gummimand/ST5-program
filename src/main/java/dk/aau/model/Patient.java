@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Model class for a Person.
  *
- * @author Nicolaj T
+ * @author St5-gr19-5403
  */
 public class Patient {
 	private static int ID = 0;

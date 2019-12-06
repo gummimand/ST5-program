@@ -2,7 +2,9 @@ package dk.aau;
 
 
 import java.io.IOException;
+import java.util.List;
 
+import Database.DatabaseManipulator;
 import dk.aau.model.Consultation;
 import dk.aau.model.Doctor;
 import dk.aau.model.ExistingInfo;
@@ -34,11 +36,14 @@ public class MainApp extends Application {
     private ObservableList<Patient> patientData = FXCollections.observableArrayList();
     private ConsultationListController consultationListcontroller;
     private Doctor doctor;
+    
+    private String sqlStatement = "SELECT patientFirstName, patientLastName FROM Patient";
 
     /**
      * Constructor
      */
     public MainApp() {
+    	/*
         // Add some sample data
         patientData.add(new Patient("Hans", "Muster"));
         patientData.add(new Patient("Ruth", "Mueller"));
@@ -49,7 +54,13 @@ public class MainApp extends Application {
         patientData.add(new Patient("Anna", "Best"));
         patientData.add(new Patient("Stefan", "Meier"));
         patientData.add(new Patient("Martin", "Mueller"));
-        
+        */
+
+    	//Get data from database and instantiate model
+    	readFromDatabase();
+    	
+    	
+    	
         doctor = new Doctor();
         
         // Test for patient specific questions
@@ -69,7 +80,17 @@ public class MainApp extends Application {
         */
     }
   
-    /**
+    /***
+     * Method to read data from database and instantiate model.
+     * Fills list with patients.
+     */
+    private void readFromDatabase() {
+    	List<Patient> pList = DatabaseManipulator.ExecuteQuery(sqlStatement);
+    	pList.forEach(e -> patientData.add(e));
+		
+	}
+
+	/**
      * Returns the data as an observable list of Patients. 
      * @return
      */
