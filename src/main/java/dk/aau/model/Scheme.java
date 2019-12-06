@@ -22,13 +22,30 @@ public class Scheme {
 	private final BooleanProperty dataVerified;
 	private final StringProperty dataAdded;
 	
-	private final Patient patient;
+	private Patient patient;
 	private final ObservableList<PRO> proList = FXCollections.observableArrayList(); 
 	private final ObservableList<ExistingInfo> existingInformationList = FXCollections.observableArrayList(); 
 	
+	private String patientCPR;
 	
-	
-
+	/**
+	 * Constructor for database intialize
+	 * @param id
+	 * @param jNote
+	 * @param pCpr
+	 */
+	public Scheme(int id, String jNote, String pCpr){
+		this.schemeID = new SimpleIntegerProperty(id);
+		this.journalNote =  new SimpleStringProperty(jNote);
+		this.patientCPR = pCpr;
+		
+		this.schemeGuide =  new SimpleStringProperty("Kig på spørgsmålene og besvar dem");
+		this.dataVerified =  new SimpleBooleanProperty(false);
+		this.dataAdded = new SimpleStringProperty("Ja");
+		
+		
+		
+	}
 	
 	public Scheme(Patient patient){
 		this(patient, "Ikke udfyldt endnu", "Kig på spørgsmålene og besvar dem", false, "Ja");
@@ -117,6 +134,9 @@ public class Scheme {
 	public Patient getPatient() {
 		return patient;
 	}
+	public void setPatient(Patient patient){
+		this.patient = patient;
+	}
 
 	/**
 	 * @return the proList
@@ -128,7 +148,7 @@ public class Scheme {
 	 * Set an entire new list as the list of PRO's
 	 * @param proList the proList to set
 	 */
-	public void setProList(ObservableList<PRO> proList) {
+	public void setProList(List<PRO> proList) {
 		this.proList.clear();
 		proList.forEach(e -> this.proList.add(e));
 		
@@ -151,7 +171,7 @@ public class Scheme {
 	/**
 	 * @param existingInformationList the existingInformationList to set
 	 */
-	public void setExistingInformationList(ObservableList<ExistingInfo> existingInformationList) {
+	public void setExistingInformationList(List<ExistingInfo> existingInformationList) {
 		this.existingInformationList.clear();
 		existingInformationList.forEach(e -> this.existingInformationList.add(e));
 	}
@@ -163,6 +183,10 @@ public class Scheme {
 	private SimpleIntegerProperty makeID(){
     	return new SimpleIntegerProperty(ID++);
     }
+	
+	public String getPatientCPR(){
+		return patientCPR;
+	}
 
 
 }

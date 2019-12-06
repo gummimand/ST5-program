@@ -17,6 +17,17 @@ public class ExistingInfo extends Question{
 	private StringProperty patientCommentText = new SimpleStringProperty("");
     private StringProperty obtainedInfoText = new SimpleStringProperty("");
    
+    private int schemeID;
+    
+    
+    public ExistingInfo(int id, String question, String obtainedInfo, int schemeID){
+    	super(question);
+    	this.existingInfoID = new SimpleIntegerProperty(id);
+    	this.obtainedInfoText = new SimpleStringProperty(obtainedInfo);
+    	this.schemeID = schemeID;
+    }
+    
+    
     /**
      * Constructor with inistialisations
      * @param question question for superclass
@@ -69,5 +80,8 @@ public class ExistingInfo extends Question{
 
     private SimpleIntegerProperty makeID(){
     	return new SimpleIntegerProperty(ID++);
+    }
+    public int getSchemeID(){
+    	return schemeID;
     }
 }

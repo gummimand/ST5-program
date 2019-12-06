@@ -10,6 +10,11 @@ public class Doctor {
 	public final IntegerProperty doctorID;
 	 private final StringProperty doctorName;
 	 
+	 public Doctor(int id, String fName, String lName){
+		 this.doctorID = new SimpleIntegerProperty(id);
+		 this.doctorName = new SimpleStringProperty(fName + " " + lName);
+	 }
+	 
 	 public Doctor() {
 		this("Teest Læge");
 	}

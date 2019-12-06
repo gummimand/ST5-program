@@ -18,8 +18,25 @@ public class PRO extends Question{
     //private final ObjectProperty<Pair<String,String>> question1;
     private StringProperty questionTextAnswer = new SimpleStringProperty("");
     private BooleanProperty questionBoolAnswer = new SimpleBooleanProperty(false);
+    
+    private int schemeID;
 
 	
+    /**
+     * Constructor for database init
+     * @param id
+     * @param question
+     * @param textAnswer
+     * @param schemeiD
+     */
+    public PRO(int id, String question, String textAnswer, int schemeiD){
+    	super(question);
+    	this.proID = new SimpleIntegerProperty(id);
+    	this.questionTextAnswer = new SimpleStringProperty(textAnswer);
+    	this.schemeID = schemeiD;
+    }
+    
+    
     /**
      * Constructor with inistialisations
      * @param question question for superclass
@@ -72,5 +89,8 @@ public class PRO extends Question{
 
     private SimpleIntegerProperty makeID(){
     	return new SimpleIntegerProperty(ID++);
+    }
+    public int getSchemeID(){
+    	return schemeID;
     }
 }

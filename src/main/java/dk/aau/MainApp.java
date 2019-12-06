@@ -4,12 +4,14 @@ package dk.aau;
 import java.io.IOException;
 import java.util.List;
 
-import Database.DatabaseManipulator;
-import dk.aau.model.Consultation;
-import dk.aau.model.Doctor;
-import dk.aau.model.ExistingInfo;
-import dk.aau.model.PRO;
-import dk.aau.model.Patient;
+import Database.DatabaseController;
+import dk.aau.model.*;
+import dk.aau.model.handlers.ConsultationHandler;
+import dk.aau.model.handlers.DoctorHandler;
+import dk.aau.model.handlers.ExistingInfoHandler;
+import dk.aau.model.handlers.PROHandler;
+import dk.aau.model.handlers.PatientHandler;
+import dk.aau.model.handlers.SchemeHandler;
 import dk.aau.view.DoctorSchemeController;
 import dk.aau.view.PatientInfoController;
 import dk.aau.view.ConsultationListController;
@@ -54,6 +56,7 @@ public class MainApp extends Application {
         patientData.add(new Patient("Anna", "Best"));
         patientData.add(new Patient("Stefan", "Meier"));
         patientData.add(new Patient("Martin", "Mueller"));
+        doctor = new Doctor();
         */
 
     	//Get data from database and instantiate model
@@ -61,7 +64,7 @@ public class MainApp extends Application {
     	
     	
     	
-        doctor = new Doctor();
+        
         
         // Test for patient specific questions
         patientData.get(0).getConsultation().getScheme().getProList().get(0).setQuestionTextAnswer(("Min farmor havde det også"));
@@ -85,8 +88,52 @@ public class MainApp extends Application {
      * Fills list with patients.
      */
     private void readFromDatabase() {
-    	List<Patient> pList = DatabaseManipulator.ExecuteQuery(sqlStatement);
+    	List<Patient> pList;
+    	List<Consultation> cList;
+    	List<Scheme> sList;
+    	List<PRO> proList;
+    	List<ExistingInfo> eList;
+    	
+    	
+    	//Get patients
+    	PatientHandler ph = new PatientHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(ph);
+    	pList = ph.getPatientlist();
+    	
+    	//Get consultations
+    	ConsultationHandler ch = new ConsultationHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(ch);
+    	cList = ch.getConsultationlist();
+    	cList.forEach(c -> System.out.println(c.getSchemeID()));
+    	
+    	//Get Schemes
+    	SchemeHandler sh = new SchemeHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(sh);
+    	sList = sh.getSchemelist();
+    	sList.forEach(c -> System.out.println(c.getPatientCPR()));
+    	
+    	//Get PRO
+    	PROHandler proH = new PROHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(proH);
+    	proList = proH.getPROlist();
+    	proList.forEach(c -> System.out.println(c.getQuestion()));
+    	
+    	//Get existing
+    	ExistingInfoHandler eh = new ExistingInfoHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(eh);
+    	eList = eh.getExistingInfolist();
+    	eList.forEach(c -> System.out.println(c.getQuestion()));
+    	
+    	//Get doctor
+    	DoctorHandler dh = new DoctorHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(dh);
+    	this.doctor = dh.getDoctorlist().get(0);
+    	System.out.println(doctor.getDoctorName());
+    	
+    	//Add to global list
     	pList.forEach(e -> patientData.add(e));
+    	
+    	
 		
 	}
 

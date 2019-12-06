@@ -31,13 +31,38 @@ public class Patient {
     
     
     
-    private final Consultation consultation = new Consultation(this);
+    private Consultation consultation;
 
     /**
-     * Default constructor.
+     * 
      */
     public Patient() {
         this(null, null);
+    }
+    
+    /**
+     * Constructor to initialize patient from database
+     * @param cpr
+     * @param fName
+     * @param lName
+     * @param phone
+     * @param eContactName
+     * @param eContactPhone
+     * @param streetName
+     */
+    public Patient(String cpr, String fName, String lName, String phone, String eContactName, String eContactPhone, String streetName){
+    	this.cprNr = new SimpleStringProperty(cpr);
+    	this.firstName = new SimpleStringProperty(fName);
+        this.lastName = new SimpleStringProperty(lName);
+        this.phoneNumber = new SimpleStringProperty(phone);
+        this.emergencyContactName = new SimpleStringProperty(eContactName);
+        this.emergencyContactPhoneNumber = new SimpleStringProperty(eContactPhone);
+        this.adress = new SimpleStringProperty(streetName);
+        
+        consultation = new Consultation(this);
+        
+        //Unused attribute.
+        this.patientID = makeID();
     }
     
     /**
@@ -58,6 +83,7 @@ public class Patient {
         this.emergencyContactName = new SimpleStringProperty(emergencyContactName);
         this.emergencyContactPhoneNumber = new SimpleStringProperty(emergencyContactPhoneNumber);
         
+        consultation = new Consultation(this);
                 
         // Some initial dummy data, just for convenient testing.
         this.patientID = makeID();
@@ -167,6 +193,9 @@ public class Patient {
     
     public Consultation getConsultation() {
     	return consultation;
+    }
+    public void setConsultation(Consultation consultation){
+    	this.consultation = consultation;
     }
     
     

@@ -20,7 +20,7 @@ import dk.aau.model.Patient;
 //PatientList to return to main.
 
 
-public class DatabaseManipulator {
+public class DatabaseController {
 	//Patientlist to fill and return to main.
 	private static List<Patient> pList = new ArrayList<>();
 	
@@ -50,57 +50,9 @@ public class DatabaseManipulator {
 		}	
 		return conn; 
 	}
-	public static List<Patient> ExecuteQuery(String sqlStatement){
-		
-		
-		Connection conn = getConnection();
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		if(conn!=null){
-			try {
-				stmt = conn.createStatement();
-				rs = stmt.executeQuery(sqlStatement);
-				
-				processResultset(rs);
-				
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-			finally {
-				
-				try {
-					rs.close();
-					
-				} catch (SQLException e2) {
-					System.out.println(e2.getMessage());
-				}
-				
-				try {
-					stmt.close();
-					
-				} catch (SQLException e2) {
-					System.out.println(e2.getMessage());
-				}
-				
-			}
-			
-		}
 	
-		
-		
-		return pList;
-		
-	}
-	private static void processResultset(ResultSet rs) throws SQLException {
-		while(rs.next()){
-			Patient p = new Patient(rs.getString("patientFirstName"), rs.getString("patientLastName"));
-			pList.add(p);
-		}
-		
-	}
 	
-	/*
+	
 	public static void ExecuteQueryWithResultSet(Queryable queryable){
 			ExecuteQueryWithResultSet(queryable.returnSqlQuery(),queryable);
 	}
@@ -144,5 +96,5 @@ public class DatabaseManipulator {
 		
 		
 	}
-	*/
+	
 }
