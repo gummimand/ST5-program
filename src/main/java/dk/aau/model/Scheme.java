@@ -15,7 +15,7 @@ import javafx.beans.property.IntegerProperty;;
 
 public class Scheme {
 	private static int ID = 10;
-	public final IntegerProperty schemeID;
+	private final IntegerProperty schemeID;
 	
 	private final StringProperty journalNote;
 	private final StringProperty schemeGuide;
@@ -48,7 +48,7 @@ public class Scheme {
 	}
 	
 	public Scheme(Patient patient){
-		this(patient, "Ikke udfyldt endnu", "Kig på spørgsmålene og besvar dem", false, "Ja");
+		this(patient, "Dummy fra model", "Dummy beskrivelse fra model", false, "Ja");
 
 	}
 	
@@ -69,20 +69,28 @@ public class Scheme {
 	}
 	
 	private void addExistingInfoDummies() {
-		ExistingInfo ex1 = new ExistingInfo("Årsag for henvisning til Reumatologisk Afdeling, og hvornår symptomerne startede", "Patient havde smerter i tibialis under gang");
-		ExistingInfo ex2 = new ExistingInfo("Medicin patienten tager i øjeblikket", "Panodil, ipren, morfin");
+		ExistingInfo ex1 = new ExistingInfo("Dummy indhentet spørgsmål fra model", "dummy indhentet data fra model");
+		ExistingInfo ex2 = new ExistingInfo("Dummy indhentet spørgsmål fra model 2", "dummy indhentet data fra model 2");
 		addToExistingInfoList(ex1);
 		addToExistingInfoList(ex2);
 	}
 
 	private void addPROdummies() {
-		PRO pro1 = new PRO("Er der rygsygdom, gigtsygdom, tarmsygdom eller psoreasis i din nærmeste familie?", "Ja min mor har det");
-		PRO pro2 = new PRO("Gener i øjne (synsforstyrrelse, smerte, betændelse, røde øjne, tørhed)", "Nej ingen");
+		PRO pro1 = new PRO("Dummy PRO spørgsmål fra model", "dummy besvarelse fra model");
+		PRO pro2 = new PRO("Dummy PRO spørgsmål fra model 2", "dummy besvarelse fra model 2");
 		addToProList(pro1);
 		addToProList(pro2);
 		
 	}
 
+	public int getSchemeID() {
+		return schemeID.get();
+	}
+	
+	public IntegerProperty schemeIDProperty() {
+		return schemeID;
+	}
+	
 	public String getJournalNote() {
 		return journalNote.get();
 	}

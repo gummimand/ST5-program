@@ -3,6 +3,7 @@ package dk.aau;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Database.DatabaseController;
 import dk.aau.model.*;
@@ -88,6 +89,7 @@ public class MainApp extends Application {
      * Fills list with patients.
      */
     private void readFromDatabase() {
+    	//Lists to use as reference for databaseobjects
     	List<Patient> pList;
     	List<Consultation> cList;
     	List<Scheme> sList;
@@ -95,45 +97,147 @@ public class MainApp extends Application {
     	List<ExistingInfo> eList;
     	
     	
-    	//Get patients
-    	PatientHandler ph = new PatientHandler();
-    	DatabaseController.ExecuteQueryWithResultSet(ph);
-    	pList = ph.getPatientlist();
+    	//load from database
+    	pList = loadPatients();
+    	cList = loadConsultations();
+    	sList = loadSchemes();
+    	proList = loadPROs();
+    	eList = loadExistingInformations();
+    	this.doctor = loadDoctor();
     	
-    	//Get consultations
-    	ConsultationHandler ch = new ConsultationHandler();
-    	DatabaseController.ExecuteQueryWithResultSet(ch);
-    	cList = ch.getConsultationlist();
-    	cList.forEach(c -> System.out.println(c.getSchemeID()));
+    	//Make correct references
+    	addProToScheme(sList, proList);
+    	addExistingToScheme(sList,eList);
+    	addPatientToScheme(sList,pList);
+    	addSchemeToConsultationAndConsultationToPatient(sList, cList,pList);
     	
-    	//Get Schemes
-    	SchemeHandler sh = new SchemeHandler();
-    	DatabaseController.ExecuteQueryWithResultSet(sh);
-    	sList = sh.getSchemelist();
-    	sList.forEach(c -> System.out.println(c.getPatientCPR()));
     	
-    	//Get PRO
-    	PROHandler proH = new PROHandler();
-    	DatabaseController.ExecuteQueryWithResultSet(proH);
-    	proList = proH.getPROlist();
-    	proList.forEach(c -> System.out.println(c.getQuestion()));
-    	
-    	//Get existing
-    	ExistingInfoHandler eh = new ExistingInfoHandler();
-    	DatabaseController.ExecuteQueryWithResultSet(eh);
-    	eList = eh.getExistingInfolist();
-    	eList.forEach(c -> System.out.println(c.getQuestion()));
-    	
-    	//Get doctor
-    	DoctorHandler dh = new DoctorHandler();
-    	DatabaseController.ExecuteQueryWithResultSet(dh);
-    	this.doctor = dh.getDoctorlist().get(0);
-    	System.out.println(doctor.getDoctorName());
-    	
-    	//Add to global list
+    	//Add patients to global list in main
     	pList.forEach(e -> patientData.add(e));
     	
     	
+		
+	}
+
+    /**
+     * Load patients from database
+     * @return list of loaded patients
+     */
+    public List<Patient> loadPatients(){
+    	PatientHandler ph = new PatientHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(ph);
+    	
+    	return ph.getPatientlist();
+    }
+    /**
+     * Load consultations from database
+     * @return list of loaded consultations
+     */
+    public List<Consultation> loadConsultations(){
+    	ConsultationHandler ch = new ConsultationHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(ch);
+    	
+    	return ch.getConsultationlist();
+    }
+    
+    /**
+     * Load schemes from database
+     * @return list of loaded schemes
+     */
+    public List<Scheme> loadSchemes(){
+    	SchemeHandler sh = new SchemeHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(sh);
+    	
+    	return sh.getSchemelist();   	
+    }
+    /**
+     * Load pros from database
+     * @return list of loaded pros
+     */
+    public List<PRO> loadPROs(){
+    	PROHandler proH = new PROHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(proH);
+    	
+    	return proH.getPROlist();
+    }
+    
+    /**
+     * Load existing infos from database
+     * @return list of loaded existing infos
+     */
+    public List<ExistingInfo> loadExistingInformations(){
+    	ExistingInfoHandler eh = new ExistingInfoHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(eh);
+    	
+    	return eh.getExistingInfolist();
+    }
+    
+    /**
+     * Load doctor from database
+     * @return loaded Doctor
+     */
+    public Doctor loadDoctor(){
+    	DoctorHandler dh = new DoctorHandler();
+    	DatabaseController.ExecuteQueryWithResultSet(dh);
+    	
+    	return dh.getDoctorlist().get(0);    	
+    }
+	
+
+	/**
+     * Algorithm/method that finds schemeID of each element in sList and searches proList for matches, and then adds matches to scheme.
+     * @param sList Schemelist to fill with PROs
+     * @param proList Prolist to find elements in to add to slist.
+     */
+	private void addProToScheme(List<Scheme> sList, List<PRO> proList) {
+		
+		 
+		sList.forEach(s -> {
+			int sID = s.getSchemeID();
+			List<PRO> matchingElements = proList.stream().filter(pro -> pro.getSchemeID() == sID).collect(Collectors.toList());
+			s.setProList(matchingElements);
+		});		
+		
+	}
+	/**
+	 * Algorithm/method that finds schemeID of each element in sList and searches eList for matches, and then adds matches to scheme.
+	 * @param sList Schemelist to fill with ExistingInfo objects
+	 * @param eList List of existingInfo objects
+	 */
+	private void addExistingToScheme(List<Scheme> sList, List<ExistingInfo> eList){
+		sList.forEach(s -> {
+			int sID = s.getSchemeID();
+			List<ExistingInfo> matchingElements = eList.stream().filter(e -> e.getSchemeID() == sID).collect(Collectors.toList());
+			s.setExistingInformationList(matchingElements);
+		});
+	}
+	/**
+	 * Algorithm/method that finds cpr of linked patient of each element in sList and searches pList for matches, and then adds matches to scheme.
+	 * @param sList Schemelist to fill with reference
+	 * @param pList List of objects to search
+	 */
+	private void addPatientToScheme(List<Scheme> sList, List<Patient> pList) {
+		sList.forEach(s -> {
+			String cprToFind = s.getPatientCPR();
+			Patient matchingP = pList.stream().filter(p -> p.getCprNr().equals(cprToFind)).findFirst().get();
+			s.setPatient(matchingP);
+		});
+		
+	}
+	
+	/**
+	 * Algorithm/method that finds schemeID from consultation and searches sList for matches, and then adds match to consultation.
+	 * @param cList consultationList to fill with reference
+	 * @param sList Schemelist to find schemes in and find patient to set reference to consultation.
+	 * @param pList List of objects to search
+	 */
+	private void addSchemeToConsultationAndConsultationToPatient(List<Scheme> sList, List<Consultation> cList, List<Patient> pList) {
+		cList.forEach(c -> {
+			int schemeIDtoFind= c.getSchemeID();
+			Scheme matchingS = sList.stream().filter(s -> s.getSchemeID() == schemeIDtoFind).findFirst().get();
+			c.setScheme(matchingS);
+			matchingS.getPatient().setConsultation(c); //For the matched scheme, set consultation for the schemes patient
+		});
 		
 	}
 

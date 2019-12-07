@@ -40,13 +40,13 @@ public class Consultation {
     
     
     public Consultation(Patient patient) {
-    	this(patient,"11:00");
+    	this(patient,"00:00");
     	
     }
     public Consultation(Patient patient, String consultationTime) {
     	//Some initial dummy data, just for convenient testing.
         this.consultationTime = new SimpleStringProperty(consultationTime);
-        this.consultationDate = new SimpleStringProperty("12/12/12");
+        this.consultationDate = new SimpleStringProperty("00/00/00");
         this.consultationID = makeID();
         
         scheme = new Scheme(patient);

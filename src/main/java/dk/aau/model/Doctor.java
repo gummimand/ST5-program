@@ -10,6 +10,8 @@ public class Doctor {
 	public final IntegerProperty doctorID;
 	 private final StringProperty doctorName;
 	 
+	 private Consultation consultation;
+	 
 	 public Doctor(int id, String fName, String lName){
 		 this.doctorID = new SimpleIntegerProperty(id);
 		 this.doctorName = new SimpleStringProperty(fName + " " + lName);
@@ -41,4 +43,12 @@ public class Doctor {
     private SimpleIntegerProperty makeID(){
     	return new SimpleIntegerProperty(ID++);
     }
+
+	public Consultation getConsultation() {
+		return consultation;
+	}
+
+	public void setConsultation(Consultation consultation) {
+		this.consultation = consultation;
+	}
 }
