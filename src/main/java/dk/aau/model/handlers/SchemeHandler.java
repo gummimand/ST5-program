@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Database.Queryable;
+import dk.aau.model.Patient;
 import dk.aau.model.Scheme;
 
 public class SchemeHandler implements Queryable{
@@ -22,7 +23,7 @@ public class SchemeHandler implements Queryable{
 	}
 
 	@Override
-	public String returnSqlQuery() {
+	public String returnSqlLoadQuery() {
 		String sqlStatement ="SELECT * FROM Scheme"; 
 		
 		
@@ -35,6 +36,21 @@ public class SchemeHandler implements Queryable{
 	 */
 	public ArrayList<Scheme> getSchemelist(){
 		return schemeList;
+	}
+
+	@Override
+	public String returnUpdateQuery(Object obj) {
+		Scheme s = (Scheme) obj;
+		
+		int sID = s.getSchemeID();
+		String jNote = s.getJournalNote();
+		
+		String sqlUploadStatement = "UPDATE Scheme SET "
+				+ "journalNote = \"" + jNote + "\""
+				+ " WHERE Scheme.schemeID = " + sID + ";";
+		
+				
+		return sqlUploadStatement;
 	}
 	
 

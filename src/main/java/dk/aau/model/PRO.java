@@ -13,14 +13,14 @@ import javafx.util.Pair;
 
 public class PRO extends Question{
 	private static int ID = 40;
-	public final IntegerProperty proID;
+	
 	
     //private final ObjectProperty<Pair<String,String>> question1;
     private StringProperty questionTextAnswer = new SimpleStringProperty("");
     private BooleanProperty questionBoolAnswer = new SimpleBooleanProperty(false);
     
     private int schemeID;
-
+    private int proID;
 	
     /**
      * Constructor for database init
@@ -31,7 +31,7 @@ public class PRO extends Question{
      */
     public PRO(int id, String question, String textAnswer, int schemeiD){
     	super(question);
-    	this.proID = new SimpleIntegerProperty(id);
+    	this.proID = id;
     	this.questionTextAnswer = new SimpleStringProperty(textAnswer);
     	this.schemeID = schemeiD;
     }
@@ -87,10 +87,14 @@ public class PRO extends Question{
         return questionBoolAnswer;
     }
 
-    private SimpleIntegerProperty makeID(){
-    	return new SimpleIntegerProperty(ID++);
+    private int makeID(){
+    	return (ID++);
     }
     public int getSchemeID(){
     	return schemeID;
+    }
+    
+    public int getProID(){
+    	return proID;
     }
 }

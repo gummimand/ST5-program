@@ -54,7 +54,7 @@ public class DatabaseController {
 	
 	
 	public static void ExecuteQueryWithResultSet(Queryable queryable){
-			ExecuteQueryWithResultSet(queryable.returnSqlQuery(),queryable);
+			ExecuteQueryWithResultSet(queryable.returnSqlLoadQuery(),queryable);
 	}
 	
 	
@@ -67,6 +67,7 @@ public class DatabaseController {
 			try {
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sqlStatement);
+				
 				
 				queryable.processResultset(rs);
 				
@@ -94,6 +95,38 @@ public class DatabaseController {
 		}
 		
 		
+		
+	}
+	
+	public static int ExecuteUploadStatement(Queryable queryable, Object obj){
+		Connection conn = getConnection();
+		Statement stmt = null;
+		int result = -1;
+		String sqlStatement = queryable.returnUpdateQuery(obj);
+		
+		if(conn!=null){
+			try {
+				stmt = conn.createStatement();
+				result = stmt.executeUpdate(sqlStatement);
+				
+				
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			finally {
+								
+				try {
+					stmt.close();
+					
+				} catch (SQLException e2) {
+					System.out.println(e2.getMessage());
+				}
+				
+			}
+			
+		}
+		
+		return result;
 		
 	}
 	

@@ -12,18 +12,21 @@ import javafx.beans.property.StringProperty;
 
 public class ExistingInfo extends Question{
 	private static int ID = 50;
-	public final IntegerProperty existingInfoID;
 	
-	private StringProperty patientCommentText = new SimpleStringProperty("");
-    private StringProperty obtainedInfoText = new SimpleStringProperty("");
+	
+	private final StringProperty patientCommentText = new SimpleStringProperty("");
+    private final StringProperty obtainedInfoText = new SimpleStringProperty("");
    
     private int schemeID;
+    private int existingInfoID;
     
     
-    public ExistingInfo(int id, String question, String obtainedInfo, int schemeID){
+    public ExistingInfo(int id, String question, String patientComment, String obtainedInfo, int schemeID){
     	super(question);
-    	this.existingInfoID = new SimpleIntegerProperty(id);
-    	this.obtainedInfoText = new SimpleStringProperty(obtainedInfo);
+    	this.existingInfoID = id;
+    	if (patientComment != null)
+    		this.patientCommentText.set(patientComment);
+    	this.obtainedInfoText.set(obtainedInfo);
     	this.schemeID = schemeID;
     }
     
@@ -46,7 +49,7 @@ public class ExistingInfo extends Question{
      */
     public ExistingInfo(String question, String obtainedInfo) {
     	super(question);
-    	obtainedInfoText= new SimpleStringProperty(obtainedInfo);
+    	obtainedInfoText.set(obtainedInfo);
     	this.existingInfoID = makeID();
     	
 		
@@ -78,10 +81,14 @@ public class ExistingInfo extends Question{
         return obtainedInfoText;
     }
 
-    private SimpleIntegerProperty makeID(){
-    	return new SimpleIntegerProperty(ID++);
+    private int makeID(){
+    	return (ID++);
     }
     public int getSchemeID(){
     	return schemeID;
+    }
+    
+    public int getExistingInfoID(){
+    	return existingInfoID;
     }
 }

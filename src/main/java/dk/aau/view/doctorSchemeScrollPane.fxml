@@ -84,7 +84,6 @@
                         </Label>
                         <Label fx:id="patientAdressLabel" layoutX="131.0" layoutY="60.0" prefHeight="17.0" prefWidth="56.0" text="adresse" />
                         <Label fx:id="patientPhoneLabel" layoutX="312.0" layoutY="60.0" prefHeight="17.0" prefWidth="100.0" text="tlf." />
-                        <Label fx:id="emergencyContactPhoneLabel" layoutX="312.0" layoutY="95.0" prefHeight="17.0" prefWidth="100.0" text="pårørende tlf." />
                         <TextArea fx:id="existingInfoPatientCommentText1" layoutX="25.0" layoutY="280.0" prefHeight="42.0" prefWidth="350.0" promptText="Patientkommentar" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="323.0" />
                         <TextArea fx:id="existingInfoPatientCommentText2" layoutX="25.0" layoutY="445.0" prefHeight="42.0" prefWidth="350.0" promptText="Patientkommentar" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="323.0" />
                         <Label fx:id="PROQuestion1Label" layoutX="25.0" layoutY="545.0" prefHeight="17.0" prefWidth="604.0" text="Er der rygsygdom, gigtsygdom, tarmsygdom eller psoreasis i din nærmeste familie?">
@@ -120,6 +119,7 @@
                         <TextArea fx:id="proAnswerText2" editable="false" layoutX="28.0" layoutY="780.0" prefHeight="83.0" prefWidth="335.0" promptText="Patientrapporteret oplysning" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="321.3333333333333" />
                         <TextArea fx:id="proAnswerDoctorCommentText2" editable="false" layoutX="381.0" layoutY="744.0" prefHeight="120.0" prefWidth="295.0" promptText="Lægenote" wrapText="true" AnchorPane.rightAnchor="8.333333333333371" />
                         <TextField fx:id="emergencyContactNameTextField" layoutX="130.0" layoutY="91.0" prefHeight="25.0" prefWidth="79.0" />
+                        <TextField fx:id="emergencyContactPhoneTextField" layoutX="307.0" layoutY="91.0" prefHeight="25.0" prefWidth="94.0" />
                      </children>
                   </AnchorPane>
                </content>

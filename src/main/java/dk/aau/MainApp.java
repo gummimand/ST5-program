@@ -2,6 +2,7 @@ package dk.aau;
 
 
 import java.io.IOException;
+import java.text.Format;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,48 +41,22 @@ public class MainApp extends Application {
     private ConsultationListController consultationListcontroller;
     private Doctor doctor;
     
-    private String sqlStatement = "SELECT patientFirstName, patientLastName FROM Patient";
+    //Lists to store objects from database.
+    private List<Patient> pList;
+    private List<Consultation> cList;
+    private List<Scheme> sList;
+    private List<PRO> proList;
+    private List<ExistingInfo> eList;
+    
+    
 
     /**
      * Constructor
      */
     public MainApp() {
-    	/*
-        // Add some sample data
-        patientData.add(new Patient("Hans", "Muster"));
-        patientData.add(new Patient("Ruth", "Mueller"));
-        patientData.add(new Patient("Heinz", "Kurz"));
-        patientData.add(new Patient("Cornelia", "Meier"));
-        patientData.add(new Patient("Werner", "Meyer"));
-        patientData.add(new Patient("Lydia", "Kunz"));
-        patientData.add(new Patient("Anna", "Best"));
-        patientData.add(new Patient("Stefan", "Meier"));
-        patientData.add(new Patient("Martin", "Mueller"));
-        doctor = new Doctor();
-        */
-
+    	
     	//Get data from database and instantiate model
     	readFromDatabase();
-    	
-    	
-    	
-        
-        
-        // Test for patient specific questions
-        patientData.get(0).getConsultation().getScheme().getProList().get(0).setQuestionTextAnswer(("Min farmor havde det også"));
-        patientData.get(0).setAdress("Hans' Adresse");
-        
-        
-        
-        
-        /*
-        //Test for updating patient with existing info
-        ExistingInfo exInfo = new ExistingInfo("Peter", "Petersen");
-        
-        patientData.filtered(p -> p.getFirstName().equals("Martin")).get(0).setFirstName(exInfo.getFirstName());
-		patientData.filtered(p -> p.getFirstName().equals("Peter") && p.getLastName().equals("Mueller")).get(0)
-				.setLastName(exInfo.getLastName());
-        */
     }
   
     /***
@@ -90,11 +65,7 @@ public class MainApp extends Application {
      */
     private void readFromDatabase() {
     	//Lists to use as reference for databaseobjects
-    	List<Patient> pList;
-    	List<Consultation> cList;
-    	List<Scheme> sList;
-    	List<PRO> proList;
-    	List<ExistingInfo> eList;
+    	
     	
     	
     	//load from database
@@ -364,6 +335,7 @@ public class MainApp extends Application {
             
             DoctorSchemeController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
             controller.setConsultation(consultation);
             controller.setDoctor(doctor);
 			
@@ -376,6 +348,38 @@ public class MainApp extends Application {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public int uploadToDatabase(){
+    	ExistingInfoHandler eh = new ExistingInfoHandler();
+    	PatientHandler ph = new PatientHandler();
+    	SchemeHandler sh = new SchemeHandler();
+    	
+    	int result = 1;
+    	
+    	for (int i = 0; i < eList.size(); i++) {
+    		ExistingInfo e = eList.get(i);
+    		//Upload each element individually
+    		int returnedResult = DatabaseController.ExecuteUploadStatement(eh, e);
+    		if (returnedResult == 0)
+    			result = 0;
+		} 
+    	
+    	for (int i = 0; i < pList.size(); i++) {
+			Patient p = pList.get(i);
+			int returnedResult = DatabaseController.ExecuteUploadStatement(ph, p);
+    		if (returnedResult == 0)
+    			result = 0;
+		}
+    	
+    	for (int i = 0; i < sList.size(); i++) {
+			Scheme s = sList.get(i);
+			int returnedResult = DatabaseController.ExecuteUploadStatement(sh, s);
+    		if (returnedResult == 0)
+    			result = 0;
+		}
+    	
+    	return result;
     }
     
     /**

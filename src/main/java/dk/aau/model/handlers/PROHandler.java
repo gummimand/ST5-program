@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Database.Queryable;
 import dk.aau.model.PRO;
+import dk.aau.model.Patient;
 
 public class PROHandler implements Queryable{
 	private ArrayList<PRO> proList = new ArrayList<>();
@@ -21,7 +22,7 @@ public class PROHandler implements Queryable{
 	}
 
 	@Override
-	public String returnSqlQuery() {
+	public String returnSqlLoadQuery() {
 		String sqlStatement ="SELECT * FROM PRO"; 
 		
 		
@@ -34,6 +35,21 @@ public class PROHandler implements Queryable{
 	 */
 	public ArrayList<PRO> getPROlist(){
 		return proList;
+	}
+
+	@Override
+	public String returnUpdateQuery(Object obj) {
+		PRO pro = (PRO) obj;
+		
+		int qID = pro.getProID();
+		String questionTAnswer = pro.getquestionTextAnswer();
+		
+		String sqlUploadStatement = "UPDATE `PRO` SET "
+				+ "questionTextAnswer = \"" + questionTAnswer + "\""
+				+ " WHERE `PRO`.`questionID` = " + qID + ";";
+		
+		
+		return sqlUploadStatement;
 	}
 
 

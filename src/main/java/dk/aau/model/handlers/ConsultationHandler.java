@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Database.Queryable;
 import dk.aau.model.Consultation;
+import dk.aau.model.Patient;
 
 public class ConsultationHandler implements Queryable{
 	private ArrayList<Consultation> consultationList = new ArrayList<>();
@@ -21,7 +22,7 @@ public class ConsultationHandler implements Queryable{
 	}
 
 	@Override
-	public String returnSqlQuery() {
+	public String returnSqlLoadQuery() {
 		String sqlStatement ="SELECT * FROM Consultation"; 
 		
 		
@@ -34,5 +35,11 @@ public class ConsultationHandler implements Queryable{
 	 */
 	public ArrayList<Consultation> getConsultationlist(){
 		return consultationList;
+	}
+
+	@Override
+	public String returnUpdateQuery(Object obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

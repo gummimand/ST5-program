@@ -23,7 +23,7 @@ public class PatientHandler implements Queryable{
 	}
 
 	@Override
-	public String returnSqlQuery() {
+	public String returnSqlLoadQuery() {
 		String sqlStatement ="SELECT * FROM Patient"; 
 		
 		
@@ -36,5 +36,22 @@ public class PatientHandler implements Queryable{
 	 */
 	public ArrayList<Patient> getPatientlist(){
 		return patientList;
+	}
+
+	@Override
+	public String returnUpdateQuery(Object obj) {
+		Patient p = (Patient) obj;
+		
+		String cpr = p.getCprNr();
+		String eName = p.getEmergencyContactName();
+		String ePhone = p.getEmergencyContactPhoneNumber();
+		
+		String sqlUploadStatement = "UPDATE Patient SET "
+				+ "emergencyContactName = \"" + eName + "\""
+				+ ", emergencyContactPhoneNumber = \"" + ePhone + "\""
+				+ " WHERE Patient.cpr = \"" + cpr + "\"" + ";";
+		
+		
+		return sqlUploadStatement;
 	}
 }

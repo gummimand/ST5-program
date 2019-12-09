@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import javax.xml.stream.events.Comment;
 
+import dk.aau.MainApp;
 import dk.aau.model.Consultation;
 import dk.aau.model.Doctor;
 import dk.aau.model.ExistingInfo;
@@ -48,7 +49,7 @@ public class DoctorSchemeController {
 	    @FXML
 	    private TextField emergencyContactNameTextField;
 	    @FXML
-	    private Label emergencyContactPhoneLabel;
+	    private TextField emergencyContactPhoneTextField;
 	    
 	    //Below is questions
 	    @FXML
@@ -93,6 +94,7 @@ public class DoctorSchemeController {
 	    private ExistingInfo ex2;
 	    private PRO pro1;
 	    private PRO pro2;
+	    private MainApp mainApp;
 	   
 	    private boolean dataSaved = false;
 	    
@@ -112,6 +114,9 @@ public class DoctorSchemeController {
 	     */
 	    public void setDialogStage(Stage dialogStage) {
 	        this.dialogStage = dialogStage;
+	    }
+	    public void setMainApp(MainApp mainApp){
+	    	this.mainApp = mainApp;
 	    }
 
 	    
@@ -158,7 +163,7 @@ public class DoctorSchemeController {
 	        patientAdressLabel.setText(patient.getAdress());
         	patientPhoneLabel.setText(patient.getPhoneNumber());
         	emergencyContactNameTextField.setText(patient.getEmergencyContactName());
-        	emergencyContactPhoneLabel.setText(patient.getEmergencyContactPhoneNumber());
+        	emergencyContactPhoneTextField.setText(patient.getEmergencyContactPhoneNumber());
 	    	
 	    }
 	    
@@ -194,22 +199,27 @@ public class DoctorSchemeController {
 	        	ex1.setPatientCommentText(existingInfoPatientCommentText1.getText());
 	        	ex1.setDoctorNote(existingInfoDoctorCommentText1.getText());
 	        	patient.setEmergencyContactName(emergencyContactNameTextField.getText());
+	        	patient.setEmergencyContactPhoneNumbere(emergencyContactPhoneTextField.getText());
 	        	
 	        	pro1.setDoctorNote(proAnswerDoctorCommentText1.getText());
 	        	pro2.setDoctorNote(proAnswerDoctorCommentText2.getText());
 	        	consultation.getScheme().setJournalNote(journalNote.getText());
 	        	
-	    	    
-	        	// Show the error message.
-	        	Alert alert = new Alert(AlertType.INFORMATION);
-	            alert.initOwner(dialogStage);
-	            alert.setTitle("Gem");
-	            alert.setHeaderText("");
-	            alert.setContentText("Data gemt!");
-	            
-	            alert.showAndWait();
-	            
-	            dataSaved = true;
+	        	//Uploading 
+	    	    int success = mainApp.uploadToDatabase();
+	        	
+	    	    if (success == 1){ 
+		        	// Show success message.
+		        	Alert alert = new Alert(AlertType.INFORMATION);
+		            alert.initOwner(dialogStage);
+		            alert.setTitle("Gem");
+		            alert.setHeaderText("");
+		            alert.setContentText("Data gemt!");
+		            
+		            alert.showAndWait();
+		            
+		            dataSaved = true;
+	    	    }
 	            
 	            //dialogStage.close();
 	        }
