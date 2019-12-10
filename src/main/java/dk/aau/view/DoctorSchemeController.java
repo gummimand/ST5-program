@@ -45,7 +45,7 @@ public class DoctorSchemeController {
 		@FXML
 		private Label patientAdressLabel;
 	    @FXML
-	    private Label patientPhoneLabel;
+	    private TextField patientPhoneTextField;
 	    @FXML
 	    private TextField emergencyContactNameTextField;
 	    @FXML
@@ -161,7 +161,7 @@ public class DoctorSchemeController {
 	        cprNumberLabel.setText(patient.getCprNr());
 	        consultationTimeLabel.setText(consultation.getConsultationTime());
 	        patientAdressLabel.setText(patient.getAdress());
-        	patientPhoneLabel.setText(patient.getPhoneNumber());
+        	patientPhoneTextField.setText(patient.getPhoneNumber());
         	emergencyContactNameTextField.setText(patient.getEmergencyContactName());
         	emergencyContactPhoneTextField.setText(patient.getEmergencyContactPhoneNumber());
 	    	
@@ -194,35 +194,67 @@ public class DoctorSchemeController {
 	    @FXML
 	    private void handleSaveButtonClicked() {
 	        if (isInputValid()) {
-	            //patient.setFirstName(firstNameField.getText());
-	        	ex1.setobtainedInfoText(existingInfoText1.getText());
-	        	ex1.setPatientCommentText(existingInfoPatientCommentText1.getText());
-	        	ex1.setDoctorNote(existingInfoDoctorCommentText1.getText());
-	        	patient.setEmergencyContactName(emergencyContactNameTextField.getText());
-	        	patient.setEmergencyContactPhoneNumbere(emergencyContactPhoneTextField.getText());
+	            saveToModel();
+	        	 
+	        	// Show success message.
+	        	Alert alert = new Alert(AlertType.INFORMATION);
+	            alert.initOwner(dialogStage);
+	            alert.setTitle("Gem");
+	            alert.setHeaderText("");
+	            alert.setContentText("Data gemt!");
+	            
+	            alert.showAndWait();
+	            
+	            dataSaved = true;
+	        }
+	    }
+	    
+	    @FXML
+	    private void handleSaveAndUploadButtonClicked() {
+	        if (isInputValid()) {
+	        	saveToModel();
 	        	
-	        	pro1.setDoctorNote(proAnswerDoctorCommentText1.getText());
-	        	pro2.setDoctorNote(proAnswerDoctorCommentText2.getText());
-	        	consultation.getScheme().setJournalNote(journalNote.getText());
-	        	
-	        	//Uploading 
+	        	//Uploading to database
 	    	    int success = mainApp.uploadToDatabase();
 	        	
 	    	    if (success == 1){ 
 		        	// Show success message.
 		        	Alert alert = new Alert(AlertType.INFORMATION);
 		            alert.initOwner(dialogStage);
-		            alert.setTitle("Gem");
+		            alert.setTitle("Gem og upload");
 		            alert.setHeaderText("");
-		            alert.setContentText("Data gemt!");
+		            alert.setContentText("Data uploadet og gemt!");
 		            
 		            alert.showAndWait();
 		            
 		            dataSaved = true;
 	    	    }
-	            
-	            //dialogStage.close();
+	    	    else{
+	    	    	// Show Alert not saved message.
+		        	Alert alert = new Alert(AlertType.ERROR);
+		            alert.initOwner(dialogStage);
+		            alert.setTitle("Upload status");
+		            alert.setHeaderText("");
+		            alert.setContentText("Data ikke uploadet!");
+		            
+		            alert.showAndWait();
+	    	    	
+	    	    }
 	        }
+	    }
+	    private void saveToModel(){
+	    	ex1.setobtainedInfoText(existingInfoText1.getText());
+        	ex1.setPatientCommentText(existingInfoPatientCommentText1.getText());
+        	ex1.setDoctorNote(existingInfoDoctorCommentText1.getText());
+        	patient.setEmergencyContactName(emergencyContactNameTextField.getText());
+        	patient.setEmergencyContactPhoneNumbere(emergencyContactPhoneTextField.getText());
+        	patient.setPhoneNumber(patientPhoneTextField.getText());
+        	
+        	pro1.setDoctorNote(proAnswerDoctorCommentText1.getText());
+        	pro1.setQuestionTextAnswer(proAnswerText1.getText());
+        	pro2.setDoctorNote(proAnswerDoctorCommentText2.getText());
+        	pro2.setQuestionTextAnswer(proAnswerText2.getText());
+        	consultation.getScheme().setJournalNote(journalNote.getText());
 	    }
 
 	    /**

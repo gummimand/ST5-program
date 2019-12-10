@@ -43,11 +43,13 @@ public class PatientHandler implements Queryable{
 		Patient p = (Patient) obj;
 		
 		String cpr = p.getCprNr();
+		String phone = p.getPhoneNumber();
 		String eName = p.getEmergencyContactName();
 		String ePhone = p.getEmergencyContactPhoneNumber();
 		
 		String sqlUploadStatement = "UPDATE Patient SET "
-				+ "emergencyContactName = \"" + eName + "\""
+				+ "phoneNumber = \"" + phone + "\""
+				+ ", emergencyContactName = \"" + eName + "\""
 				+ ", emergencyContactPhoneNumber = \"" + ePhone + "\""
 				+ " WHERE Patient.cpr = \"" + cpr + "\"" + ";";
 		

@@ -352,8 +352,10 @@ public class MainApp extends Application {
     
     public int uploadToDatabase(){
     	ExistingInfoHandler eh = new ExistingInfoHandler();
+    	PROHandler proH = new PROHandler();
     	PatientHandler ph = new PatientHandler();
     	SchemeHandler sh = new SchemeHandler();
+    	
     	
     	int result = 1;
     	
@@ -365,8 +367,17 @@ public class MainApp extends Application {
     			result = 0;
 		} 
     	
+    	for (int i = 0; i < proList.size(); i++) {
+    		PRO pro = proList.get(i);
+    		//Upload each element individually
+    		int returnedResult = DatabaseController.ExecuteUploadStatement(proH, pro);
+    		if (returnedResult == 0)
+    			result = 0;
+		} 
+    	
     	for (int i = 0; i < pList.size(); i++) {
 			Patient p = pList.get(i);
+			//Upload each element individually
 			int returnedResult = DatabaseController.ExecuteUploadStatement(ph, p);
     		if (returnedResult == 0)
     			result = 0;
@@ -374,6 +385,7 @@ public class MainApp extends Application {
     	
     	for (int i = 0; i < sList.size(); i++) {
 			Scheme s = sList.get(i);
+			//Upload each element individually
 			int returnedResult = DatabaseController.ExecuteUploadStatement(sh, s);
     		if (returnedResult == 0)
     			result = 0;

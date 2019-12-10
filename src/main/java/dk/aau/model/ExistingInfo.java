@@ -24,8 +24,7 @@ public class ExistingInfo extends Question{
     public ExistingInfo(int id, String question, String patientComment, String obtainedInfo, int schemeID){
     	super(question);
     	this.existingInfoID = id;
-    	if (patientComment != null)
-    		this.patientCommentText.set(patientComment);
+    	this.patientCommentText.set(patientComment);
     	this.obtainedInfoText.set(obtainedInfo);
     	this.schemeID = schemeID;
     }
