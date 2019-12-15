@@ -191,6 +191,7 @@ public class DoctorSchemeController {
 	     * Called when the user clicks ok.
 	     */
 	    
+	    //Unused so far but template for upload to external database.
 	    @FXML
 	    private void handleSaveButtonClicked() {
 	        if (isInputValid()) {
@@ -209,6 +210,7 @@ public class DoctorSchemeController {
 	        }
 	    }
 	    
+	    //Used for saving to local database
 	    @FXML
 	    private void handleSaveAndUploadButtonClicked() {
 	        if (isInputValid()) {
@@ -221,9 +223,9 @@ public class DoctorSchemeController {
 		        	// Show success message.
 		        	Alert alert = new Alert(AlertType.INFORMATION);
 		            alert.initOwner(dialogStage);
-		            alert.setTitle("Gem og upload");
+		            alert.setTitle("Gem");
 		            alert.setHeaderText("");
-		            alert.setContentText("Data uploadet og gemt!");
+		            alert.setContentText("Data gemt!");
 		            
 		            alert.showAndWait();
 		            
@@ -233,9 +235,9 @@ public class DoctorSchemeController {
 	    	    	// Show Alert not saved message.
 		        	Alert alert = new Alert(AlertType.ERROR);
 		            alert.initOwner(dialogStage);
-		            alert.setTitle("Upload status");
+		            alert.setTitle("Gem mislykkedes");
 		            alert.setHeaderText("");
-		            alert.setContentText("Data ikke uploadet!");
+		            alert.setContentText("Data ikke gemt!");
 		            
 		            alert.showAndWait();
 	    	    	
@@ -246,6 +248,11 @@ public class DoctorSchemeController {
 	    	ex1.setobtainedInfoText(existingInfoText1.getText());
         	ex1.setPatientCommentText(existingInfoPatientCommentText1.getText());
         	ex1.setDoctorNote(existingInfoDoctorCommentText1.getText());
+        	ex2.setobtainedInfoText(existingInfoText2.getText());
+        	ex2.setPatientCommentText(existingInfoPatientCommentText2.getText());
+        	ex2.setDoctorNote(existingInfoDoctorCommentText2.getText());
+        	
+        	
         	patient.setEmergencyContactName(emergencyContactNameTextField.getText());
         	patient.setEmergencyContactPhoneNumbere(emergencyContactPhoneTextField.getText());
         	patient.setPhoneNumber(patientPhoneTextField.getText());

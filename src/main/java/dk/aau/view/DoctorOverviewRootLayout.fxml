@@ -10,13 +10,13 @@
    <top>
       <AnchorPane prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="101.0" layoutY="17.0" text="Vælg dato">
+            <Label layoutX="101.0" layoutY="17.0" text="Valgt dato">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <DatePicker layoutX="166.0" layoutY="13.0" promptText="Dags dato" AnchorPane.leftAnchor="166.0" />
-            <Label layoutX="457.0" layoutY="17.0" text="LægeID:" AnchorPane.leftAnchor="457.0" AnchorPane.rightAnchor="197.0">
+            <Label layoutX="435.0" layoutY="17.0" prefHeight="17.0" prefWidth="68.0" text="Læge navn:" AnchorPane.leftAnchor="435.0" AnchorPane.rightAnchor="197.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

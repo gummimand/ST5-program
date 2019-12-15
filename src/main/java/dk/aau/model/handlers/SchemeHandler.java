@@ -16,7 +16,7 @@ public class SchemeHandler implements Queryable{
 	public void processResultset(ResultSet rs) throws SQLException {
 		while(rs.next()){
 			Scheme s = new Scheme(rs.getInt("schemeID"), rs.getString("journalNote"),
-								  rs.getString("patientCPR"));
+								  rs.getString("schemeGuide"), rs.getString("patientCPR"));
 			schemeList.add(s);
 	}
 		
@@ -44,9 +44,11 @@ public class SchemeHandler implements Queryable{
 		
 		int sID = s.getSchemeID();
 		String jNote = s.getJournalNote();
+		String schemeGuide = s.getschemeGuide();
 		
 		String sqlUploadStatement = "UPDATE Scheme SET "
 				+ "journalNote = \"" + jNote + "\""
+				+ ", schemeGuide = \"" + schemeGuide + "\""
 				+ " WHERE Scheme.schemeID = " + sID + ";";
 		
 				

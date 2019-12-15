@@ -2,6 +2,7 @@ package dk.aau;
 
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.text.Format;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,10 +65,6 @@ public class MainApp extends Application {
      * Fills list with patients.
      */
     private void readFromDatabase() {
-    	//Lists to use as reference for databaseobjects
-    	
-    	
-    	
     	//load from database
     	pList = loadPatients();
     	cList = loadConsultations();

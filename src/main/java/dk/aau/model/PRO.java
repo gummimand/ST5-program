@@ -12,10 +12,7 @@ import javafx.util.Pair;
 
 
 public class PRO extends Question{
-	private static int ID = 40;
-	
-	
-    //private final ObjectProperty<Pair<String,String>> question1;
+		
     private StringProperty questionTextAnswer = new SimpleStringProperty("");
     private BooleanProperty questionBoolAnswer = new SimpleBooleanProperty(false);
     
@@ -29,39 +26,15 @@ public class PRO extends Question{
      * @param textAnswer
      * @param schemeiD
      */
-    public PRO(int id, String question, String textAnswer, int schemeiD){
+    public PRO(int id, String question, String textAnswer, String doctorNote, int schemeiD){
     	super(question);
     	this.proID = id;
     	this.questionTextAnswer = new SimpleStringProperty(textAnswer);
+    	super.setDoctorNote(doctorNote);
     	this.schemeID = schemeiD;
+    	
     }
     
-    
-    /**
-     * Constructor with inistialisations
-     * @param question question for superclass
-     */
-    public PRO(String question) {
-    	super(question);
-    	this.proID = makeID();
-    			
-	}
-    
-    
-    /**
-     * 
-     * @param question question for superclass
-     * @param answer answer for question
-     */
-    public PRO(String question, String answer) {
-    	super(question);
-    	questionTextAnswer= new SimpleStringProperty(answer);
-    	this.proID = makeID();
-    	
-		
-	}
-	
-	
     
     public String getquestionTextAnswer() {
         return questionTextAnswer.get();
@@ -87,9 +60,6 @@ public class PRO extends Question{
         return questionBoolAnswer;
     }
 
-    private int makeID(){
-    	return (ID++);
-    }
     public int getSchemeID(){
     	return schemeID;
     }

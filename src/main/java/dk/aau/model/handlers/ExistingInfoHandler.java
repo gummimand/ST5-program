@@ -15,7 +15,7 @@ public class ExistingInfoHandler implements Queryable{
 	public void processResultset(ResultSet rs) throws SQLException {
 		while(rs.next()){
 			ExistingInfo e = new ExistingInfo(rs.getInt("questionID"), rs.getString("question"),
-							rs.getString("patientComment"), rs.getString("obtainedInformation"), 
+							rs.getString("patientComment"), rs.getString("obtainedInformation"), rs.getString("doctorNote"),  
 							rs.getInt("schemeID"));
 			existingInfoList.add(e);
 	}
@@ -45,10 +45,12 @@ public class ExistingInfoHandler implements Queryable{
 		int qID = e.getExistingInfoID();
 		String obtainedInfo = e.getobtainedInfoText();
 		String patientComment = e.getpatientCommentText();
+		String doctorNote = e.getdoctorNote();
 		
 		String sqlUploadStatement = "UPDATE ExistingInformation SET "
 				+ "obtainedInformation = \"" + obtainedInfo + "\""
 				+ ", patientComment = \"" + patientComment + "\""
+				+ ", doctorNote = \"" + doctorNote + "\""
 				+ " WHERE ExistingInformation.questionID = " + qID + ";";
 		
 		// TODO Auto-generated method stub

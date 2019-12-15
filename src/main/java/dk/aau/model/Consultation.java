@@ -6,8 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Consultation {
-	private static int ID = 20;
-	public final IntegerProperty consultationID;
 	private final StringProperty consultationTime;
 	private final StringProperty consultationDate;
     
@@ -31,53 +29,24 @@ public class Consultation {
     	this.consultationDate = new SimpleStringProperty(date);
     	this.doctorID=doctorID;
     	this.schemeID=schemeID;     
-    	
-    	
-    	
-    	//UNused
-    	this.consultationID = makeID();
-    }
-    
-    
-    public Consultation(Patient patient) {
-    	this(patient,"00:00");
-    	
-    }
-    public Consultation(Patient patient, String consultationTime) {
-    	//Some initial dummy data, just for convenient testing.
-        this.consultationTime = new SimpleStringProperty(consultationTime);
-        this.consultationDate = new SimpleStringProperty("00/00/00");
-        this.consultationID = makeID();
-        
-        scheme = new Scheme(patient);
-    	
+
     }
     
     
     public String getConsultationTime() {
         return consultationTime.get();
     }
-
-    public void setConsultationTime(String consultationTime) {
-        this.consultationTime.set(consultationTime);
-    }
-    
+   
     public StringProperty consultationTimeProperty() {
         return consultationTime;
     }
     public String getConsultationDate() {
         return consultationDate.get();
     }
-
-    public void setConsultationDate(String consultationDate) {
-        this.consultationDate.set(consultationDate);
-    }
     
-    public StringProperty consultationDateeProperty() {
+    public StringProperty consultationDateProperty() {
         return consultationDate;
     }
-    
-    
     
     public Scheme getScheme() {
     	return scheme;
@@ -86,16 +55,10 @@ public class Consultation {
     	this.scheme = scheme;
     }
     
-    private SimpleIntegerProperty makeID(){
-    	return new SimpleIntegerProperty(ID++);
-    }
-
-
 	public int getSchemeID() {
 		return schemeID;
 	}
-
-
+	
 	public int getDoctorID() {
 		return doctorID;
 	}    

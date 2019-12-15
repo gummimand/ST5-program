@@ -14,12 +14,9 @@ import javafx.beans.property.IntegerProperty;;
 
 
 public class Scheme {
-	private static int ID = 10;
 	private final IntegerProperty schemeID;
-	
 	private final StringProperty journalNote;
 	private final StringProperty schemeGuide;
-	private final BooleanProperty dataVerified;
 	private final StringProperty dataAdded;
 	
 	private Patient patient;
@@ -34,54 +31,19 @@ public class Scheme {
 	 * @param jNote
 	 * @param pCpr
 	 */
-	public Scheme(int id, String jNote, String pCpr){
+	public Scheme(int id, String jNote, String schemeGuide, String pCpr){
 		this.schemeID = new SimpleIntegerProperty(id);
 		this.journalNote =  new SimpleStringProperty(jNote);
 		this.patientCPR = pCpr;
+		this.schemeGuide =  new SimpleStringProperty(schemeGuide);
 		
-		this.schemeGuide =  new SimpleStringProperty("Kig på spørgsmålene og besvar dem");
-		this.dataVerified =  new SimpleBooleanProperty(false);
 		this.dataAdded = new SimpleStringProperty("Ja");
 		
 		
 		
 	}
 	
-	public Scheme(Patient patient){
-		this(patient, "Dummy fra model", "Dummy beskrivelse fra model", false, "Ja");
-
-	}
 	
-	public Scheme(Patient patient, String journalNote, String schemeGuide, Boolean dataVerified, String dataAdded) {
-		this.patient = patient;
-		
-		this.journalNote =  new SimpleStringProperty(journalNote);
-		this.schemeGuide =  new SimpleStringProperty(schemeGuide);
-		this.dataVerified =  new SimpleBooleanProperty(dataVerified);
-		this.dataAdded = new SimpleStringProperty(dataAdded);
-		
-		this.schemeID = makeID();
-		
-		addPROdummies();
-		addExistingInfoDummies();
-		
-		
-	}
-	
-	private void addExistingInfoDummies() {
-		ExistingInfo ex1 = new ExistingInfo("Dummy indhentet spørgsmål fra model", "dummy indhentet data fra model");
-		ExistingInfo ex2 = new ExistingInfo("Dummy indhentet spørgsmål fra model 2", "dummy indhentet data fra model 2");
-		addToExistingInfoList(ex1);
-		addToExistingInfoList(ex2);
-	}
-
-	private void addPROdummies() {
-		PRO pro1 = new PRO("Dummy PRO spørgsmål fra model", "dummy besvarelse fra model");
-		PRO pro2 = new PRO("Dummy PRO spørgsmål fra model 2", "dummy besvarelse fra model 2");
-		addToProList(pro1);
-		addToProList(pro2);
-		
-	}
 
 	public int getSchemeID() {
 		return schemeID.get();
@@ -95,8 +57,8 @@ public class Scheme {
 		return journalNote.get();
 	}
 	
-	public void setJournalNote(String dischargeSummary) {
-		this.journalNote.set(dischargeSummary);
+	public void setJournalNote(String journalNote) {
+		this.journalNote.set(journalNote);
 	}
 
 	public StringProperty journalNoteProperty() {
@@ -111,17 +73,6 @@ public class Scheme {
 		return schemeGuide;
 	}
 	
-	public Boolean getdataVerified() {
-        return dataVerified.get();
-    }
-
-    public void setdataVerified(Boolean dataVerified) {
-        this.dataVerified.set(dataVerified);
-    }
-    
-    public BooleanProperty dataVerifiedProperty() {
-        return dataVerified;
-    }
 	
 	public String getDataAdded() {
         return dataAdded.get();
@@ -188,9 +139,6 @@ public class Scheme {
 		existingInformationList.add(ex);
 		
 	}
-	private SimpleIntegerProperty makeID(){
-    	return new SimpleIntegerProperty(ID++);
-    }
 	
 	public String getPatientCPR(){
 		return patientCPR;

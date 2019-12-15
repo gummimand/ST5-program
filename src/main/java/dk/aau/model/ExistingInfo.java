@@ -10,10 +10,7 @@ import javafx.beans.property.StringProperty;
 
 
 
-public class ExistingInfo extends Question{
-	private static int ID = 50;
-	
-	
+public class ExistingInfo extends Question{	
 	private final StringProperty patientCommentText = new SimpleStringProperty("");
     private final StringProperty obtainedInfoText = new SimpleStringProperty("");
    
@@ -21,40 +18,25 @@ public class ExistingInfo extends Question{
     private int existingInfoID;
     
     
-    public ExistingInfo(int id, String question, String patientComment, String obtainedInfo, int schemeID){
+    
+    /**
+     * Constructor to initalize from database
+     * @param id
+     * @param question
+     * @param patientComment
+     * @param obtainedInfo
+     * @param doctorNote
+     * @param schemeID
+     */
+    public ExistingInfo(int id, String question, String patientComment, String obtainedInfo, String doctorNote, int schemeID){
     	super(question);
     	this.existingInfoID = id;
     	this.patientCommentText.set(patientComment);
     	this.obtainedInfoText.set(obtainedInfo);
+    	super.setDoctorNote(doctorNote);
     	this.schemeID = schemeID;
     }
     
-    
-    /**
-     * Constructor with inistialisations
-     * @param question question for superclass
-     */
-    public ExistingInfo(String question) {
-    	super(question);
-    	this.existingInfoID = makeID();
-    			
-	}
-    
-    
-    /**
-     *  Constructor with inistialisations
-     * @param question question for superclass
-     * @param answer obtained for question
-     */
-    public ExistingInfo(String question, String obtainedInfo) {
-    	super(question);
-    	obtainedInfoText.set(obtainedInfo);
-    	this.existingInfoID = makeID();
-    	
-		
-	}
-	
-	
     
     public String getpatientCommentText() {
         return patientCommentText.get();
@@ -80,9 +62,6 @@ public class ExistingInfo extends Question{
         return obtainedInfoText;
     }
 
-    private int makeID(){
-    	return (ID++);
-    }
     public int getSchemeID(){
     	return schemeID;
     }
